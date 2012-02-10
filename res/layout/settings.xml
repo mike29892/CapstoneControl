@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/mainLayout"
+	android:descendantFocusability="beforeDescendants"
+	android:focusableInTouchMode="true"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+<include  layout="@layout/bar" />
+
+    <TextView
+        android:id="@+id/settingsMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings Menu"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:id="@+id/ipAddressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/settingsMenuText"
+        android:text="IP Address of the server:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+ />
+
+    <Button
+        android:id="@+id/applyButton"
+        android:background="@drawable/btn_blue"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Apply" />
+
+    <EditText
+        android:id="@+id/ipAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ipAddressText" />
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+	android:background="#00000000" 
+    android:orientation="horizontal"
+    android:theme="@android:style/Theme.NoTitleBar" >
+
+    <ImageView
+        android:id="@+id/barIcon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/icon_in_bar" />
+
+    <Button
+        android:id="@+id/mainBar"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/alertsButton"
+        android:layout_toRightOf="@+id/barIcon"
+        android:layout_weight="0.20"
+        android:background="#333333"
+        android:clickable="true"
+        android:text=" " />
+
+    <Button
+        android:id="@+id/alertsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:text="0"
+        android:background="@drawable/alert_button" />
+
+        </LinearLayout>

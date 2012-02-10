@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include android:id="@+id/myHeader" 
+     layout="@layout/bar" />
+
+    <TextView
+        android:id="@+id/livingRoomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Living Room - OFF"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         android:layout_below="@layout/bar"
+        android:layout_marginTop="80dp" />
+
+    <SeekBar
+        android:id="@+id/livingRoomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/livingRoomText" />
+
+    <TextView
+        android:id="@+id/bedroomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/livingRoomBar"
+        android:text="Bedroom - OFF"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+ />
+
+    <SeekBar
+        android:id="@+id/bedroomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bedroomText" />
+
+    <TextView
+        android:id="@+id/kitchenText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bedroomBar"
+        android:text="Kitchen - OFF"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+/>
+
+    <SeekBar
+        android:id="@+id/kitchenBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/kitchenText" />
+
+
+</RelativeLayout>
