@@ -30,9 +30,10 @@ public final class R {
         public static final int status_icon=0x7f02000c;
     }
     public static final class id {
+        public static final int aeMessage=0x7f080022;
         public static final int alertsButton=0x7f080004;
-        public static final int appliancesButton=0x7f080022;
-        public static final int applyButton=0x7f080028;
+        public static final int appliancesButton=0x7f08001e;
+        public static final int applyButton=0x7f080026;
         public static final int barIcon=0x7f080002;
         public static final int bedroomBar=0x7f08001a;
         public static final int bedroomText=0x7f080019;
@@ -44,31 +45,28 @@ public final class R {
         public static final int disconnect_footer=0x7f08000d;
         public static final int disconnect_text=0x7f08000c;
         public static final int divider=0x7f080008;
-        public static final int doorButton=0x7f080024;
+        public static final int doorButton=0x7f080020;
         public static final int doorVideo=0x7f080011;
         public static final int header=0x7f080005;
         public static final int hello_world=0x7f080015;
         public static final int hello_world_info=0x7f080013;
-        public static final int ipAddress=0x7f080029;
-        public static final int ipAddressText=0x7f080027;
+        public static final int ipAddress=0x7f080027;
+        public static final int ipAddressText=0x7f080025;
         public static final int kitchenBar=0x7f08001c;
         public static final int kitchenText=0x7f08001b;
-        public static final int lightsButton=0x7f080021;
+        public static final int lightsButton=0x7f08001d;
         public static final int livingRoomBar=0x7f080018;
         public static final int livingRoomText=0x7f080017;
-        public static final int loginButton=0x7f08001e;
-        public static final int loginMessage=0x7f08001f;
         public static final int mainBar=0x7f080003;
-        public static final int mainLayout=0x7f08001d;
+        public static final int mainLayout=0x7f080023;
         public static final int myHeader=0x7f080016;
         public static final int openDoorButton=0x7f080012;
-        public static final int radiobuttons=0x7f080020;
         public static final int say_hello=0x7f080014;
-        public static final int securityButton=0x7f080023;
+        public static final int securityButton=0x7f08001f;
         public static final int select_account=0x7f080009;
         public static final int select_text=0x7f080007;
-        public static final int settingsButton=0x7f080025;
-        public static final int settingsMenuText=0x7f080026;
+        public static final int settingsButton=0x7f080021;
+        public static final int settingsMenuText=0x7f080024;
         public static final int textView1=0x7f08000f;
         public static final int textView2=0x7f080010;
         public static final int view1=0x7f080000;
@@ -83,9 +81,8 @@ public final class R {
         public static final int hello_world=0x7f030006;
         public static final int lights=0x7f030007;
         public static final int list_text_style=0x7f030008;
-        public static final int login=0x7f030009;
-        public static final int main=0x7f03000a;
-        public static final int settings=0x7f03000b;
+        public static final int main=0x7f030009;
+        public static final int settings=0x7f03000a;
     }
     public static final class menu {
         public static final int main_menu=0x7f070000;

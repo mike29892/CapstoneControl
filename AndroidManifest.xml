@@ -61,5 +61,14 @@
                 <category android:name="com.capstonecontrol" />
             </intent-filter>
         </receiver>
+        
+        <activity android:name=".AlertsActivity"></activity>
+		<activity android:name=".BarACtivity"></activity>
+		<activity android:name=".DoorActivity"></activity>
+		<activity android:name=".LightsActivity"></activity>
+		<activity android:name=".MjpegInputStream"></activity>
+		<activity android:name=".MjpegView"></activity>
+		<activity android:name=".SettingsActivity"></activity>
+        
     </application>
 </manifest>
