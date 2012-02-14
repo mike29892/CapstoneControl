@@ -7,6 +7,7 @@ import com.capstonecontrol.client.ModulesRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.ModuleFetchRequest;
 import com.capstonecontrol.client.MyRequestFactory;
 import com.capstonecontrol.client.MyRequestFactory.HelloWorldRequest;
+import com.capstonecontrol.shared.ModuleInfoProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
@@ -217,6 +218,7 @@ public class CapstoneControlActivity extends BarActivity {
 	    	    }
 	    	  });
 	      	//appliances button
+	    	  final TextView aeMessage = (TextView) findViewById(R.id.aeMessage);
 	      	  this.appliancesButton = (Button)this.findViewById(R.id.appliancesButton);
 	      	  this.appliancesButton.setOnClickListener(new OnClickListener() {
 	      	    @Override
@@ -232,19 +234,19 @@ public class CapstoneControlActivity extends BarActivity {
 	                        		ModulesRequestFactory.class);
 	                        final ModuleFetchRequest request = requestFactory.moduleFetchRequest();
 	                        Log.i(TAG, "Fetching modules");
-	                        /*request.getModules().fire(new Receiver<List<ModuleInfo>>() {
+	                        request.getModules().fire(new Receiver<List<ModuleInfoProxy>>() {
 	                            @Override
 	                            public void onFailure(ServerFailure error) {
-	                                //do nothing right now
+	                            	aeMessage.setText("Modules fetch failed!");
 	                            }
 
 								@Override
-								public void onSuccess(List<ModuleInfo> arg0) {
-									// TODO Auto-generated method stub
-									
+								public void onSuccess(List<ModuleInfoProxy> arg0) {
+									aeMessage.setText("Modules fetch success!");
+									modules.equals(arg0);
 								}
 	                        });
-	                        */
+	                        
 	                        return modules;
 	                    }
 
