@@ -7,6 +7,13 @@ public class ModuleInfo {
 	String user;
 	String date;
 	
+	public ModuleInfo(String moduleMacAddr, String moduleName, String moduleType, String user){
+		this.moduleMacAddr = moduleMacAddr;
+		this.moduleName = moduleName;
+		this.moduleType = moduleType;
+		this.user = user;
+	}
+
 	public String getModuleName(){
 		return moduleName;
 	}

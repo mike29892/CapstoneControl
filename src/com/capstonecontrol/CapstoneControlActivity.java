@@ -264,8 +264,16 @@ public class CapstoneControlActivity extends BarActivity {
 									public void onSuccess(
 											List<ModuleInfoProxy> arg0) {
 										foundModules = "The modules found were: ";
-										modules.equals(arg0);
-
+										for (int i = 0; i < arg0.size(); i++) {
+											// create temporary module infro
+											// proxy, tmi
+											ModuleInfoProxy tmi = arg0.get(i);
+											modules.add(new ModuleInfo(tmi
+													.getModuleMacAddr(), tmi
+													.getModuleName(), tmi
+													.getModuleType(), tmi
+													.getUser()));
+										}
 									}
 								});
 						return modules;
@@ -279,8 +287,13 @@ public class CapstoneControlActivity extends BarActivity {
 						if (result != null) {
 							for (int i = 0; i < result.size(); i++) {
 								foundModules += result.get(i).getModuleName();
+								if (i != (result.size()-1)) {
+									foundModules += ", ";
+								}
 							}
 						}
+
+						foundModules += ".";
 						aeMessage.setText(foundModules);
 					}
 				}.execute();
