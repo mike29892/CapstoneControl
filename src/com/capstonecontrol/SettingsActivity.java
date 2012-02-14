@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -54,23 +55,34 @@ public class SettingsActivity extends BarActivity {
 			public void onClick(View view) {
 				// update all entered fields
 				serverIPAddress = ipAddressField.getText().toString();
-				//@TEST print out in logcat to see if IP is saved correctly
-				//Log.d("serverIPAddress",serverIPAddress);
+				// @TEST print out in logcat to see if IP is saved correctly
+				// Log.d("serverIPAddress",serverIPAddress);
 				// show settings saved message if all fields are valid
 				if (checkFieldValidities()) {
 					settingsSavedMsg();
 				}
 			}
 		});
+
+		// logout button
+		Button accountsButton = (Button) this.findViewById(R.id.accountsButton);
+		accountsButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// featureNotEnabledMsg();
+				Intent myIntent = new Intent(view.getContext(),
+						AccountsActivity.class);
+				startActivity(myIntent);
+			}
+		});
 	}
-	
-	
+
 	/**
-	* this method will fill in any text fields or select any options
-	* on the settings page based on the currently saved settings
-	*/
+	 * this method will fill in any text fields or select any options on the
+	 * settings page based on the currently saved settings
+	 */
 	public void populateFields() {
-			ipAddressField.setText(serverIPAddress);
+		ipAddressField.setText(serverIPAddress);
 	}
 
 	public boolean checkFieldValidities() {
@@ -78,7 +90,7 @@ public class SettingsActivity extends BarActivity {
 		pattern = Pattern.compile(IPADDRESS_PATTERN);
 		// check each field
 		if (!validateIPAddress(serverIPAddress)) {
-			//give error msg
+			// give error msg
 			invalidFieldMsg("Server IP Address");
 			return false;
 		}
@@ -88,6 +100,7 @@ public class SettingsActivity extends BarActivity {
 
 	/**
 	 * Validate ip address with regular expression
+	 * 
 	 * @param ip
 	 *            ip address for validation
 	 * @return true valid ip address, false invalid ip address
@@ -116,15 +129,19 @@ public class SettingsActivity extends BarActivity {
 				 */
 				.show();
 	}
-	
+
 	/**
 	 * Validate ip address with regular expression
+	 * 
 	 * @param fieldName
 	 *            name of the field which contains the invalid entry
 	 */
 	public void invalidFieldMsg(String fieldName) {
-		new AlertDialog.Builder(this).setTitle(fieldName + " contains an invalid value, please fix it.")
-		// .setMessage("")
+		new AlertDialog.Builder(this)
+				.setTitle(
+						fieldName
+								+ " contains an invalid value, please fix it.")
+				// .setMessage("")
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						// do nothing, returns to the main menu

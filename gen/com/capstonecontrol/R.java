@@ -30,6 +30,7 @@ public final class R {
         public static final int status_icon=0x7f02000c;
     }
     public static final class id {
+        public static final int accountsButton=0x7f080028;
         public static final int aeMessage=0x7f080022;
         public static final int alertsButton=0x7f080004;
         public static final int appliancesButton=0x7f08001e;

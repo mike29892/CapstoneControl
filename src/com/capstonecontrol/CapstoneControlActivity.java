@@ -1,7 +1,13 @@
 package com.capstonecontrol;
 
+import java.util.Collection;
+import java.util.List;
+
+import com.capstonecontrol.client.ModulesRequestFactory;
+import com.capstonecontrol.client.ModulesRequestFactory.ModuleFetchRequest;
 import com.capstonecontrol.client.MyRequestFactory;
 import com.capstonecontrol.client.MyRequestFactory.HelloWorldRequest;
+import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -19,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,7 +72,8 @@ public class CapstoneControlActivity extends BarActivity {
 	            prefs.edit().putString(Util.CONNECTION_STATUS, connectionStatus).commit();
 
 	            // Display a notification
-	            Util.generateNotification(mContext, String.format(message, accountName));
+	            //@TODO find out why below is causing null pointer and crash
+	           // Util.generateNotification(mContext, String.format(message, accountName));
 	        }
 	    };
 
@@ -75,6 +83,7 @@ public class CapstoneControlActivity extends BarActivity {
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        Log.i(TAG, "onCreate");
+	        requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        super.onCreate(savedInstanceState);
 	        
 	        //set policy to ignore network on main thread
@@ -212,7 +221,39 @@ public class CapstoneControlActivity extends BarActivity {
 	      	  this.appliancesButton.setOnClickListener(new OnClickListener() {
 	      	    @Override
 	      	    public void onClick(View view) {
-	      	    	featureNotEnabledMsg();
+	      	    	//featureNotEnabledMsg();
+	                // Use an AsyncTask to avoid blocking the UI thread
+	                new AsyncTask<Void, Void, List<ModuleInfo>>() {
+	                    //private String message;
+	                    private List<ModuleInfo> modules;
+	                    @Override
+	                    protected List<ModuleInfo> doInBackground(Void... arg0) {
+	                        ModulesRequestFactory requestFactory = Util.getRequestFactory(mContext,
+	                        		ModulesRequestFactory.class);
+	                        final ModuleFetchRequest request = requestFactory.moduleFetchRequest();
+	                        Log.i(TAG, "Fetching modules");
+	                        /*request.getModules().fire(new Receiver<List<ModuleInfo>>() {
+	                            @Override
+	                            public void onFailure(ServerFailure error) {
+	                                //do nothing right now
+	                            }
+
+								@Override
+								public void onSuccess(List<ModuleInfo> arg0) {
+									// TODO Auto-generated method stub
+									
+								}
+	                        });
+	                        */
+	                        return modules;
+	                    }
+
+	                    @Override
+	                    protected void onPostExecute(List<ModuleInfo> modules) {
+	                        securityButton.setEnabled(true);
+	                        
+	                    }
+	                }.execute();
 	      	    }
 	    	  });
 	      	//settings button
