@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/mainLayout"
-	android:descendantFocusability="beforeDescendants"
-	android:focusableInTouchMode="true"
+    android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
-<include  layout="@layout/bar" />
+
+    <include layout="@layout/bar" />
 
     <TextView
         android:id="@+id/settingsMenuText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="Settings Menu"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-         android:layout_marginTop="80dp"/>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/ipAddressText"
+        android:id="@+id/modulesAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/settingsMenuText"
-        android:text="IP Address of the server:"
-        android:textAppearance="?android:attr/textAppearanceMedium"
- />
-
+        android:text="List of modules on account:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/applyButton"
-        android:background="@drawable/btn_blue"
         style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/btn_blue"
         android:text="Apply" />
-
-    <EditText
-        android:id="@+id/ipAddress"
+
+    <TextView
+        android:id="@+id/dimmerCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/ipAddressText" />
+        android:layout_below="@+id/modulesAccount"
+        android:text="Light Dimmers: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/buzzerCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dimmerCount"
+        android:text="Buzzers: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/accountsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ipAddress"
+        android:layout_below="@+id/buzzerCount"
         android:text="Edit Accounts" />
 
 </RelativeLayout>

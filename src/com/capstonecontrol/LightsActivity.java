@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,111 +26,84 @@ public class LightsActivity extends BarActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.lights);
-		//@TODO REMOVE BELOW AND PUT AND POST STATEMENT IN ITS OWN THREAD
+		// @TODO REMOVE BELOW AND PUT AND POST STATEMENT IN ITS OWN THREAD
 		ThreadPolicy tp = ThreadPolicy.LAX;
 		StrictMode.setThreadPolicy(tp);
-		//enable bar
+		// enable bar
 		enableBar();
-		//enable POST capabilities
+		// enable POST capabilities
 		enablePOST();
-		// set variables
-		livingRoomBar = (SeekBar) this.findViewById(R.id.livingRoomBar);
-		kitchenBar = (SeekBar) this.findViewById(R.id.kitchenBar);
-		bedroomBar = (SeekBar) this.findViewById(R.id.bedroomBar);
-		livingRoomText = (TextView) this.findViewById(R.id.livingRoomText);
-		bedroomText = (TextView) this.findViewById(R.id.bedroomText);
-		kitchenText = (TextView) this.findViewById(R.id.kitchenText);
+		// dynamically create labels and seekbars
+		createLightSeekBars();
 
+		/*
+		 * old way // set variables livingRoomBar = (SeekBar)
+		 * this.findViewById(R.id.livingRoomBar); livingRoomText = (TextView)
+		 * this.findViewById(R.id.livingRoomText);
+		 * 
+		 * // livingRoomBar Listener livingRoomBar
+		 * .setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+		 * 
+		 * @Override public void onStopTrackingTouch(SeekBar arg0) { //send POST
+		 * sendPOST("kitchenLights",progressString); }
+		 * 
+		 * @Override public void onStartTrackingTouch(SeekBar arg0) { // do
+		 * nothing }
+		 * 
+		 * @Override public void onProgressChanged(SeekBar arg0, int progress,
+		 * boolean fromTouch) { // save progress progressString =
+		 * Integer.toString(progress); // changed the display to off/on based on
+		 * progress of // bar if (progress == 0) {
+		 * livingRoomText.setText("Living Room - OFF"); } else {
+		 * livingRoomText.setText("Living Room - ON"); } } });
+		 */
+	}
 
-		// livingRoomBar Listener
-		livingRoomBar
-				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+	private void createLightSeekBars() {
+		ScrollView sv = new ScrollView(this);
+		LinearLayout ll = (LinearLayout) this
+				.findViewById(R.id.linearLayoutLights);
+		ll.setOrientation(LinearLayout.VERTICAL);
+		// now based on modules synced with account add labels and settings
+		if (CapstoneControlActivity.modules != null) {
+			for (int i = 0; i < CapstoneControlActivity.modules.size(); i++) {
+				if (CapstoneControlActivity.modules.get(i).getModuleType()
+						.equals("Dimmer")) {
+					final int index = i;
+					// add label
+					TextView tv = new TextView(this);
+					tv.setText(CapstoneControlActivity.modules.get(i)
+							.getModuleName());
+					ll.addView(tv);
+					// add seekbar
+					SeekBar sb = new SeekBar(this);
+					ll.addView(sb);
+					//add listener
+					sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-					@Override
-					public void onStopTrackingTouch(SeekBar arg0) {
-						//send POST
-						sendPOST("kitchenLights",progressString);				
-					}
+						 @Override
+						 public void onStopTrackingTouch(SeekBar arg0) {
+						  // TODO Auto-generated method stub
 
-					@Override
-					public void onStartTrackingTouch(SeekBar arg0) {
-						// do nothing
-					}
+						 }
 
-					@Override
-					public void onProgressChanged(SeekBar arg0, int progress,
-							boolean fromTouch) {
-						// save progress
-						progressString = Integer.toString(progress);
-						// changed the display to off/on based on progress of
-						// bar
-						if (progress == 0) {
-							livingRoomText.setText("Living Room - OFF");
-						} else {
-							livingRoomText.setText("Living Room - ON");		
-						}
-					}
-				});
+						 @Override
+						 public void onStartTrackingTouch(SeekBar arg0) {
+							 sendPOST(CapstoneControlActivity.modules.get(index).getModuleName(),progressString);
 
-		// bedroomBar Listener
-		bedroomBar
-				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+						 }
 
-					@Override
-					public void onStopTrackingTouch(SeekBar arg0) {
-						//send POST
-						sendPOST("bedroomLights",progressString);	
-					}
-
-					@Override
-					public void onStartTrackingTouch(SeekBar arg0) {
-						// do nothing
-					}
-
-					@Override
-					public void onProgressChanged(SeekBar arg0, int progress,
-							boolean fromTouch) {
-						// save progress
-						progressString = Integer.toString(progress);
-						// changed the display to off/on based on progress of
-						// bar
-						if (progress == 0) {
-							bedroomText.setText("Bedroom - OFF");
-						} else {
-							bedroomText.setText("Bedroom - ON");
-						}
-					}
-				});
-
-		// kitchenBar Listener
-		kitchenBar
-				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-					@Override
-					public void onStopTrackingTouch(SeekBar arg0) {
-						// do nothing
-					}
-
-					@Override
-					public void onStartTrackingTouch(SeekBar arg0) {
-						// do nothing
-					}
-
-					@Override
-					public void onProgressChanged(SeekBar arg0, int progress,
-							boolean fromTouch) {
-						// changed the display to off/on based on progress of
-						// bar
-						if (progress == 0) {
-							kitchenText.setText("Kitchen - OFF");
-						} else {
-							kitchenText.setText("Kitchen - ON");
-						}
-					}
-				});
+						 @Override
+						 public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
+						  // TODO Auto-generated method stub
+						 }
+						});
+				}
+			}
+		}
 
 	}
 }

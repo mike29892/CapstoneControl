@@ -38,12 +38,39 @@ public class SettingsActivity extends BarActivity {
 		populateFields();
 		// enable the main button listeners
 		enableApplyButtonListener();
+		// set modules count
+		setModulesCount();
 		// enable bar
 		enableBar();
 	}
 
+	private void setModulesCount() {
+		int buzzerCount = 0;
+		int dimmerCount = 0;
+		if (CapstoneControlActivity.modules != null) {
+		int moduleCount = CapstoneControlActivity.modules.size();
+		for (int i = 0; i < moduleCount; i++) {
+			if (CapstoneControlActivity.modules.get(i).getModuleType()
+					.equals("Dimmer")) {
+				dimmerCount++;
+			}
+			if (CapstoneControlActivity.modules.get(i).getModuleType()
+					.equals("Door Buzzer")) {
+				buzzerCount++;
+			}
+		}
+		// now update TextView
+		TextView dimmerCountText = (TextView) this
+				.findViewById(R.id.dimmerCount);
+		dimmerCountText.setText("Light Dimmers: " + dimmerCount);
+		TextView buzzerCountText = (TextView) this
+				.findViewById(R.id.buzzerCount);
+		buzzerCountText.setText("Door Buzzers : " + buzzerCount);
+		}
+	}
+
 	public void createFieldInstances() {
-		ipAddressField = (TextView) this.findViewById(R.id.ipAddress);
+		// ipAddressField = (TextView) this.findViewById(R.id.ipAddress);
 	}
 
 	public void enableApplyButtonListener() {
@@ -82,18 +109,17 @@ public class SettingsActivity extends BarActivity {
 	 * settings page based on the currently saved settings
 	 */
 	public void populateFields() {
-		ipAddressField.setText(serverIPAddress);
+		// ipAddressField.setText(serverIPAddress);
 	}
 
 	public boolean checkFieldValidities() {
+		// check ip validity
 		// create pattern
-		pattern = Pattern.compile(IPADDRESS_PATTERN);
-		// check each field
-		if (!validateIPAddress(serverIPAddress)) {
-			// give error msg
-			invalidFieldMsg("Server IP Address");
-			return false;
-		}
+		/*
+		 * pattern = Pattern.compile(IPADDRESS_PATTERN); // check each field if
+		 * (!validateIPAddress(serverIPAddress)) { // give error msg
+		 * invalidFieldMsg("Server IP Address"); return false; }
+		 */
 		// if code got to here return true
 		return true;
 	}

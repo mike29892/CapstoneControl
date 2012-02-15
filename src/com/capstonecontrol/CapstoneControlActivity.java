@@ -39,7 +39,7 @@ public class CapstoneControlActivity extends BarActivity {
 	private Button appliancesButton;
 	private Button settingsButton;
 	private Button doorButton;
-	private List<ModuleInfo> modules;
+	public static List<ModuleInfo> modules;
 
 	private static final String TAG = "CapstoneControlActivity";
 
@@ -236,12 +236,12 @@ public class CapstoneControlActivity extends BarActivity {
 			@Override
 			public void onClick(View view) {
 				// featureNotEnabledMsg();
+				modules = new ArrayList<ModuleInfo>();
 				appliancesButton.setEnabled(false);
 				aeMessage.setText(R.string.contacting_server);
 				// Use an AsyncTask to avoid blocking the UI thread
 				// Use an AsyncTask to avoid blocking the UI thread
 				new AsyncTask<Void, Void, List<ModuleInfo>>() {
-					private List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
 					String foundModules;
 
 					@Override
@@ -257,7 +257,7 @@ public class CapstoneControlActivity extends BarActivity {
 									@Override
 									public void onFailure(ServerFailure error) {
 										// do nothing, no modules found
-										foundModules = "No modules were found!";
+										foundModules = "There was an error!";
 									}
 
 									@Override
@@ -274,6 +274,7 @@ public class CapstoneControlActivity extends BarActivity {
 													.getModuleType(), tmi
 													.getUser()));
 										}
+										if (modules.isEmpty()) foundModules = "No modules were found!";
 									}
 								});
 						return modules;
