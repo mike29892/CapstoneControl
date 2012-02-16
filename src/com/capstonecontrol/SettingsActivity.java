@@ -81,7 +81,7 @@ public class SettingsActivity extends BarActivity {
 			@Override
 			public void onClick(View view) {
 				// update all entered fields
-				serverIPAddress = ipAddressField.getText().toString();
+				//serverIPAddress = ipAddressField.getText().toString();
 				// @TEST print out in logcat to see if IP is saved correctly
 				// Log.d("serverIPAddress",serverIPAddress);
 				// show settings saved message if all fields are valid

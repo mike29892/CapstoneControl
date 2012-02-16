@@ -1,15 +1,10 @@
 package com.capstonecontrol;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import com.capstonecontrol.client.ModulesRequestFactory;
-import com.capstonecontrol.client.ModulesRequestFactory.ModuleFetchRequest;
 import com.capstonecontrol.client.MyRequestFactory;
 import com.capstonecontrol.client.MyRequestFactory.HelloWorldRequest;
-import com.capstonecontrol.shared.ModuleInfoProxy;
-import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -39,7 +34,9 @@ public class CapstoneControlActivity extends BarActivity {
 	private Button appliancesButton;
 	private Button settingsButton;
 	private Button doorButton;
-	public static List<ModuleInfo> modules;
+	public static List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
+	private boolean splashStarted;
+	public static boolean userChanged = false;
 
 	private static final String TAG = "CapstoneControlActivity";
 
@@ -55,10 +52,12 @@ public class CapstoneControlActivity extends BarActivity {
 	private final BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			@SuppressWarnings("unused")
 			String accountName = intent
 					.getStringExtra(DeviceRegistrar.ACCOUNT_NAME_EXTRA);
 			int status = intent.getIntExtra(DeviceRegistrar.STATUS_EXTRA,
 					DeviceRegistrar.ERROR_STATUS);
+			@SuppressWarnings("unused")
 			String message = null;
 			String connectionStatus = Util.DISCONNECTED;
 			if (status == DeviceRegistrar.REGISTERED_STATUS) {
@@ -105,6 +104,16 @@ public class CapstoneControlActivity extends BarActivity {
 				Util.UPDATE_UI_INTENT));
 
 		// set up to get modules from gae datastore
+		// check if modules is empty
+		if (userChanged) {
+			// it means no modules were found, so account has none or not logged
+			// in
+			// therefore try to search for some.
+			userChanged = false;
+			splashStarted = true;
+			startActivity(new Intent(this, SplashActivity.class));
+			Log.i(TAG, "Splash initiated from onCreate");
+		}
 	}
 
 	@Override
@@ -118,6 +127,19 @@ public class CapstoneControlActivity extends BarActivity {
 			startActivity(new Intent(this, AccountsActivity.class));
 		}
 		setScreenContent(R.layout.main);
+		if (userChanged) {
+			userChanged = false;
+			// it means no modules were found, so account has none or not logged
+			// in
+			// therefore try to search for some.
+			if (splashStarted == true) {
+				splashStarted = false;
+			} else {
+				startActivity(new Intent(this, SplashActivity.class));
+				Log.i(TAG, "Splash initiated from onResume");
+			}
+
+		}
 	}
 
 	/**
@@ -229,75 +251,12 @@ public class CapstoneControlActivity extends BarActivity {
 			}
 		});
 		// appliances button
-		final TextView aeMessage = (TextView) findViewById(R.id.aeMessage);
 		this.appliancesButton = (Button) this
 				.findViewById(R.id.appliancesButton);
 		this.appliancesButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				// featureNotEnabledMsg();
-				modules = new ArrayList<ModuleInfo>();
-				appliancesButton.setEnabled(false);
-				aeMessage.setText(R.string.contacting_server);
-				// Use an AsyncTask to avoid blocking the UI thread
-				// Use an AsyncTask to avoid blocking the UI thread
-				new AsyncTask<Void, Void, List<ModuleInfo>>() {
-					String foundModules;
-
-					@Override
-					protected List<ModuleInfo> doInBackground(Void... arg0) {
-						ModulesRequestFactory requestFactory = Util
-								.getRequestFactory(mContext,
-										ModulesRequestFactory.class);
-						final ModuleFetchRequest request = requestFactory
-								.moduleFetchRequest();
-						Log.i(TAG, "Sending request to server");
-						request.getModules().fire(
-								new Receiver<List<ModuleInfoProxy>>() {
-									@Override
-									public void onFailure(ServerFailure error) {
-										// do nothing, no modules found
-										foundModules = "There was an error!";
-									}
-
-									@Override
-									public void onSuccess(
-											List<ModuleInfoProxy> arg0) {
-										foundModules = "The modules found were: ";
-										for (int i = 0; i < arg0.size(); i++) {
-											// create temporary module infro
-											// proxy, tmi
-											ModuleInfoProxy tmi = arg0.get(i);
-											modules.add(new ModuleInfo(tmi
-													.getModuleMacAddr(), tmi
-													.getModuleName(), tmi
-													.getModuleType(), tmi
-													.getUser()));
-										}
-										if (modules.isEmpty()) foundModules = "No modules were found!";
-									}
-								});
-						return modules;
-					}
-
-					@Override
-					protected void onPostExecute(List<ModuleInfo> result) {
-						// save into global module list in this class
-						appliancesButton.setEnabled(true);
-						// print found modules
-						if (result != null) {
-							for (int i = 0; i < result.size(); i++) {
-								foundModules += result.get(i).getModuleName();
-								if (i != (result.size()-1)) {
-									foundModules += ", ";
-								}
-							}
-						}
-
-						foundModules += ".";
-						aeMessage.setText(foundModules);
-					}
-				}.execute();
+				featureNotEnabledMsg();
 			}
 		});
 		// settings button
