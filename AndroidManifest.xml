@@ -24,7 +24,7 @@
     <!-- Permission to request authtokens from the AccountManager -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
-    <application android:icon="@drawable/autohome_icon"
+    <application android:icon="@drawable/plainicon"
         android:label="@string/app_name">
 
         <!--  Main activity -->
