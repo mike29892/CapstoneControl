@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -63,6 +64,8 @@ public class LightsActivity extends BarActivity {
 	}
 
 	private void createLightSeekBars() {
+		final TextView mqttChannnel = (TextView) this.findViewById(R.id.mqttChannel);
+		final TextView mqttValue = (TextView) this.findViewById(R.id.mqttValue);
 		ScrollView sv = new ScrollView(this);
 		LinearLayout ll = (LinearLayout) this
 				.findViewById(R.id.linearLayoutLights);
@@ -86,19 +89,22 @@ public class LightsActivity extends BarActivity {
 
 						 @Override
 						 public void onStopTrackingTouch(SeekBar arg0) {
-						  // TODO Auto-generated method stub
-
+							 
+							 String mqttPath = "/" + CapstoneControlActivity.googleUserName + "/" + CapstoneControlActivity.modules.get(index).getModuleName();
+							 sendPOST(mqttPath,progressString);
+							 mqttChannnel.setText("MQTT Channel: " + mqttPath);
+							 mqttValue.setText("MQTT Value: " + progressString);
+							 
 						 }
 
 						 @Override
 						 public void onStartTrackingTouch(SeekBar arg0) {
-							 sendPOST(CapstoneControlActivity.modules.get(index).getModuleName(),progressString);
-
 						 }
 
 						 @Override
-						 public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
-						  // TODO Auto-generated method stub
+						 public void onProgressChanged(SeekBar arg0, int progress,
+									boolean fromTouch) {
+							 progressString = Integer.toString(progress);
 						 }
 						});
 				}

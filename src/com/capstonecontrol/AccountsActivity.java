@@ -83,6 +83,7 @@ public class AccountsActivity extends Activity {
 	/**
 	 * Begins the activity.
 	 */
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -172,6 +173,7 @@ public class AccountsActivity extends Activity {
 					CapstoneControlActivity.modules.clear();
 					// instead of finish() go back to the AccountsActivity for
 					// new login.
+					CapstoneControlActivity.googleUserName = (String) account.getText();
 					Intent myIntent = new Intent(v.getContext(),
 							SplashActivity.class);
 					startActivity(myIntent);

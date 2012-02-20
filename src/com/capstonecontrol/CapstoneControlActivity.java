@@ -3,8 +3,11 @@ package com.capstonecontrol;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.capstonecontrol.client.ModulesRequestFactory;
 import com.capstonecontrol.client.MyRequestFactory;
+import com.capstonecontrol.client.ModulesRequestFactory.ModuleFetchRequest;
 import com.capstonecontrol.client.MyRequestFactory.HelloWorldRequest;
+import com.capstonecontrol.shared.ModuleInfoProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -37,6 +40,7 @@ public class CapstoneControlActivity extends BarActivity {
 	public static List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
 	private boolean splashStarted;
 	public static boolean userChanged = false;
+	public static String googleUserName;
 
 	private static final String TAG = "CapstoneControlActivity";
 
@@ -119,12 +123,16 @@ public class CapstoneControlActivity extends BarActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		SharedPreferences prefs = Util.getSharedPreferences(mContext);
 		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
 				Util.DISCONNECTED);
 		if (Util.DISCONNECTED.equals(connectionStatus)) {
 			startActivity(new Intent(this, AccountsActivity.class));
+		}
+		//@TODO the way we fetch modules is a hack job right now
+		//it needs to be completelty rewritten
+		if (modules.size()< 1){
+			getModules();
 		}
 		setScreenContent(R.layout.main);
 		if (userChanged) {
@@ -142,6 +150,72 @@ public class CapstoneControlActivity extends BarActivity {
 		}
 	}
 
+	void getModules(){
+		new AsyncTask<Void, Void, List<ModuleInfo>>() {
+			@SuppressWarnings("unused")
+			String foundModules;
+
+			@Override
+			protected List<ModuleInfo> doInBackground(Void... arg0) {
+				ModulesRequestFactory requestFactory = Util.getRequestFactory(
+						mContext, ModulesRequestFactory.class);
+				final ModuleFetchRequest request = requestFactory
+						.moduleFetchRequest();
+				Log.i(TAG, "Sending request to server");
+				request.getModules().fire(
+						new Receiver<List<ModuleInfoProxy>>() {
+							@Override
+							public void onFailure(ServerFailure error) {
+								// do nothing, no modules found
+								foundModules = "There was an error!";
+							}
+
+							@Override
+							public void onSuccess(List<ModuleInfoProxy> arg0) {
+								foundModules = "The modules found were: ";
+								for (int i = 0; i < arg0.size(); i++) {
+									// create temporary module infro
+									// proxy, tmi
+									ModuleInfoProxy tmi = arg0.get(i);
+									CapstoneControlActivity.modules
+											.add(new ModuleInfo(tmi
+													.getModuleMacAddr(), tmi
+													.getModuleName(), tmi
+													.getModuleType(), tmi
+													.getUser()));
+								}
+								if (CapstoneControlActivity.modules.isEmpty())
+									foundModules = "No modules were found!";
+							}
+						});
+				return CapstoneControlActivity.modules;
+			}
+
+			@Override
+			protected void onPostExecute(List<ModuleInfo> result) {
+				// save into global module list in this class
+
+				// print found modules
+				if (result != null) {
+					for (int i = 0; i < result.size(); i++) {
+						foundModules += result.get(i).getModuleName();
+						if (i != (result.size() - 1)) {
+							foundModules += ", ";
+						}
+					}
+				}
+
+				foundModules += ".";
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}.execute();
+	}
+	
 	/**
 	 * Shuts down the activity.
 	 */

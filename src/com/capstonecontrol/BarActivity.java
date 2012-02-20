@@ -122,7 +122,7 @@ public class BarActivity extends Activity {
 	public void enablePOST(){
 		//create POST variables
 				//client = new DefaultHttpClient();
-				httpPost = new HttpPost("http://" + SettingsActivity.serverIPAddress+"/buzz");
+				httpPost = new HttpPost("http://23.21.229.136/message.php");
 				
 				HttpParams httpParameters = new BasicHttpParams();
 				// Set the timeout in milliseconds until a connection is established.
@@ -136,11 +136,12 @@ public class BarActivity extends Activity {
 				httpClient = new DefaultHttpClient(httpParameters);			
 	}
 	
-	public void sendPOST(String variable, String value){
+	public void sendPOST(String channel, String value){
 		//NOW POST
 		
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair(variable,value));
+		pairs.add(new BasicNameValuePair("where",channel));
+		pairs.add(new BasicNameValuePair("message",value));
 		try {
 			httpPost.setEntity(new UrlEncodedFormEntity(pairs));
 		} catch (UnsupportedEncodingException e) {
