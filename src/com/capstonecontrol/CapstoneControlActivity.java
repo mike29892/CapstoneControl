@@ -126,7 +126,9 @@ public class CapstoneControlActivity extends BarActivity {
 		SharedPreferences prefs = Util.getSharedPreferences(mContext);
 		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
 				Util.DISCONNECTED);
-		if (Util.DISCONNECTED.equals(connectionStatus)) {
+		//first check to see if already connected, if so save username into googleUserName
+		googleUserName = prefs.getString(Util.ACCOUNT_NAME, "Unknown");
+		if (Util.DISCONNECTED.equals(connectionStatus) || googleUserName == null) {
 			startActivity(new Intent(this, AccountsActivity.class));
 		}
 		//@TODO the way we fetch modules is a hack job right now

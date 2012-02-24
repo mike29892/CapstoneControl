@@ -1,43 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-<include  layout="@layout/bar" />
-       
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Door Menu"
-        android:textColor = "#ffffff"
-        android:textAppearance="?android:attr/textAppearanceMedium" 
-         android:layout_marginTop="80dp"/>
+    android:layout_height="fill_parent" >
+
+    <include
+        android:id="@+id/myHeader"
+        layout="@layout/bar" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/doorMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Video of Door:"
-        android:textColor = "#ffffff"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@id/textView1" />
+        android:layout_below="@layout/bar"
+        android:layout_marginTop="80dp"
+        android:text="Door Menu:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <VideoView
-        android:id="@+id/doorVideo"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_above="@+id/openDoorButton"
-        android:layout_below="@id/textView2"
-        android:layout_weight="0.34" />
-
-    <Button
-        android:id="@+id/openDoorButton"
-        android:background="@drawable/btn_blue"
-        style="@style/ButtonText"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayoutDoor"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Open Door"
-        android:layout_alignParentBottom = "true" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/doorMenu"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mqttChannel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayoutDoor"
+        android:text="mqttChannel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/mqttValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/mqttChannel"
+        android:text="mqttValue"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

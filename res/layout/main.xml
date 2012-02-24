@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<include  layout="@layout/bar" />
-    
+    android:layout_height="fill_parent" >
+
+    <include layout="@layout/bar" />
+
     <Button
         android:id="@+id/lightsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lights"
-          android:layout_marginTop="80dp" />
+        android:layout_marginTop="80dp"
+        android:text="Lights" />
 
     <Button
         android:id="@+id/appliancesButton"
@@ -20,20 +20,6 @@
         android:text="Appliances" />
 
     <Button
-        android:id="@+id/securityButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appliancesButton"
-        android:text="Security" />
-
-    <Button
-        android:id="@+id/doorButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/securityButton"
-        android:text="Door" />
-
-    <Button
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,13 +28,28 @@
         android:layout_alignParentRight="true"
         android:text="Settings" />
 
+    <Button
+        android:id="@+id/doorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/appliancesButton"
+        android:text="Door" />
+
+    <Button
+        android:id="@+id/securityButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/doorButton"
+        android:text="Check App Engine Connection" />
+
     <TextView
         android:id="@+id/aeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/doorButton"
-        android:layout_marginTop="17dp"
+        android:layout_below="@+id/securityButton"
         android:text="aeMessage" />
 
 </RelativeLayout>

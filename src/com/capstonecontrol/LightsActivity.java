@@ -6,20 +6,12 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class LightsActivity extends BarActivity {
 	// variables
-	SeekBar livingRoomBar;
-	SeekBar kitchenBar;
-	SeekBar bedroomBar;
-	TextView livingRoomText;
-	TextView bedroomText;
-	TextView kitchenText;
 	HttpClient client;
 	HttpPost post;
 	String progressString;
@@ -66,7 +58,6 @@ public class LightsActivity extends BarActivity {
 	private void createLightSeekBars() {
 		final TextView mqttChannnel = (TextView) this.findViewById(R.id.mqttChannel);
 		final TextView mqttValue = (TextView) this.findViewById(R.id.mqttValue);
-		ScrollView sv = new ScrollView(this);
 		LinearLayout ll = (LinearLayout) this
 				.findViewById(R.id.linearLayoutLights);
 		ll.setOrientation(LinearLayout.VERTICAL);

@@ -55,11 +55,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/accountsButton"
+        android:id="@+id/refreshModulesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/buzzerCount"
+        android:text="Refresh Modules" />
+
+    <Button
+        android:id="@+id/accountsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/refreshModulesButton"
         android:text="Edit Accounts" />
 
 </RelativeLayout>

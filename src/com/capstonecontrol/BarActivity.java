@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -150,6 +151,7 @@ public class BarActivity extends Activity {
 		}
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
+			Log.i("HttpResponse", response.getEntity().toString());
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
