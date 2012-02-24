@@ -82,8 +82,8 @@ public class CapstoneControlActivity extends BarActivity {
 
 			// Display a notification
 			// @TODO find out why below is causing null pointer and crash
-			// Util.generateNotification(mContext, String.format(message,
-			// accountName));
+			Util.generateNotification(mContext, String.format(message,
+			accountName));
 		}
 	};
 
