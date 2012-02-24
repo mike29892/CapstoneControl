@@ -1,6 +1,8 @@
 package com.capstonecontrol;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -23,9 +25,10 @@ public class AlertsActivity extends ListActivity {
 		updateAlertsList();
 		// enable Clear Alerts Button
 		enableClearAlertsButtonListener();
-		//set counter equal to the alert count
+		// set counter equal to the alert count
 		alertCountButton = (Button) this.findViewById(R.id.alertsButton);
-		alertCountButton.setText(Integer.toString(BarActivity.alertsList.size()));
+		alertCountButton
+				.setText(Integer.toString(BarActivity.alertsList.size()));
 	}
 
 	public void updateAlertsList() {
@@ -52,15 +55,42 @@ public class AlertsActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				// featureNotEnabledMsg();
-				// clear alerts array
-				BarActivity.clearAlertsList();
-				// now update the display list
-				updateAlertsList();
-				//finally set the alert count to 0
-				alertCountButton.setText("0");
+				confirmDialog();
 			}
 		});
 
+	}
+
+	public void confirmDialog() {
+		new AlertDialog.Builder(this)
+				.setTitle("Clear Alerts?")
+				// .setMessage("")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing, returns to the main menu
+					}
+				})
+
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// continue with delete
+								// clear alerts array
+								BarActivity.clearAlertsList();
+								// now update the display list
+								updateAlertsList();
+								// finally set the alert count to 0
+								alertCountButton.setText("0");
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing
+					}
+				})
+
+				.show();
 	}
 
 }
