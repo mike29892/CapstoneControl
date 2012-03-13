@@ -56,12 +56,10 @@ public class CapstoneControlActivity extends BarActivity {
 	private final BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			@SuppressWarnings("unused")
 			String accountName = intent
 					.getStringExtra(DeviceRegistrar.ACCOUNT_NAME_EXTRA);
 			int status = intent.getIntExtra(DeviceRegistrar.STATUS_EXTRA,
 					DeviceRegistrar.ERROR_STATUS);
-			@SuppressWarnings("unused")
 			String message = null;
 			String connectionStatus = Util.DISCONNECTED;
 			if (status == DeviceRegistrar.REGISTERED_STATUS) {

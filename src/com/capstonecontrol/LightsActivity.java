@@ -82,7 +82,10 @@ public class LightsActivity extends BarActivity {
 						 public void onStopTrackingTouch(SeekBar arg0) {
 							 
 							 String mqttPath = "/" + CapstoneControlActivity.googleUserName + "/" + CapstoneControlActivity.modules.get(index).getModuleName();
+							 //send post for control
 							 sendPOST(mqttPath,progressString);
+							 //no send post for log
+							 logModuleEvent(CapstoneControlActivity.modules.get(index), "Dim", progressString);
 							 mqttChannnel.setText("MQTT Channel: " + mqttPath);
 							 mqttValue.setText("MQTT Value: " + progressString);
 							 
