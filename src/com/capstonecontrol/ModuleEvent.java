@@ -11,12 +11,13 @@ public class ModuleEvent {
 	String action;
 
 	public ModuleEvent(String moduleName, String moduleType, String user,
-			String action, Date date) {
+			String action, Date date, String value) {
 		this.moduleName = moduleName;
 		this.moduleType = moduleType;
 		this.user = user;
 		this.action = action;
 		this.date = date;
+		this.value = value;
 	}
 
 	public String getModuleName() {
@@ -37,6 +38,10 @@ public class ModuleEvent {
 	
 	public String getAction(){
 		return action;
+	}
+	
+	public String getValue(){
+		return value;
 	}
 
 	// @TODO figure out why this is needed and how its used

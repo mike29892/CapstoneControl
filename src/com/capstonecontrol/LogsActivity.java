@@ -63,7 +63,7 @@ public class LogsActivity extends BarListActivity {
 		this.submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//first disable the button
+				// first disable the button
 				submitButton.setEnabled(false);
 				// clear previous request
 				moduleEvents.clear();
@@ -93,7 +93,7 @@ public class LogsActivity extends BarListActivity {
 		moduleSpinner.setAdapter(moduleAdapter);
 	}
 
-	private void displayRefreshingList(){
+	private void displayRefreshingList() {
 		moduleEventsList.clear();
 		moduleEventsList.add("Refreshing...");
 		// create list
@@ -105,9 +105,9 @@ public class LogsActivity extends BarListActivity {
 				moduleEventsList);
 		lv.setAdapter(arrayAdapter);
 	}
-	
+
 	private void updateEventListView() {
-		//done search for re-enable the submit button
+		// done search for re-enable the submit button
 		submitButton.setEnabled(true);
 		String tempString;
 		// clear old list
@@ -122,6 +122,7 @@ public class LogsActivity extends BarListActivity {
 			tempString = moduleEvents.get(i).getDate().toGMTString();
 			tempString += "      " + moduleEvents.get(i).getModuleName();
 			tempString += "      " + moduleEvents.get(i).getModuleType();
+			tempString += "      " + moduleEvents.get(i).getValue();
 			boolean displayEvent = checkToAddEvent(moduleEvents.get(i)
 					.getDate(), moduleEvents.get(i).getModuleType());
 			if (displayEvent) {
@@ -174,6 +175,7 @@ public class LogsActivity extends BarListActivity {
 	private void getLogInfo() {
 		new AsyncTask<Void, Void, List<ModuleEvent>>() {
 			String foundModuleEvents;
+
 			@Override
 			protected List<ModuleEvent> doInBackground(Void... arg0) {
 				ModulesRequestFactory requestFactory = Util.getRequestFactory(
@@ -199,7 +201,8 @@ public class LogsActivity extends BarListActivity {
 									moduleEvents.add(new ModuleEvent(tmi
 											.getModuleName(), tmi
 											.getModuleType(), tmi.getUser(),
-											tmi.getAction(), tmi.getDate()));
+											tmi.getAction(), tmi.getDate(), tmi
+													.getValue()));
 								}
 								if (moduleEvents.isEmpty())
 									foundModuleEvents = "No module events were found!";
