@@ -37,11 +37,19 @@
         android:text="Door" />
 
     <Button
-        android:id="@+id/securityButton"
+        android:id="@+id/logButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/doorButton"
+        android:text="Event Logs" />
+
+    <Button
+        android:id="@+id/securityButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/logButton"
         android:text="Check App Engine Connection" />
 
     <TextView

@@ -81,5 +81,22 @@
     <item name="android:shadowRadius">2</item>
 </style>
 
+    
+    <string name="moduleType_prompt">Choose a Module Type</string>
+    <string-array name="moduleType_array">
+        <item>All</item>
+        <item>Door Buzzer</item>
+        <item>Light Dimmer</item>
+    </string-array>
+    
+    <string name="dateRange_prompt">Choose a Date Range</string>
+    <string-array name="dateRange_array">
+        <item>Past Day</item>
+        <item>Past Week</item>
+        <item>Past 30 Days</item>
+        <item>Past 60 Days</item>
+        <item>Past 90 Days</item>
+
+    </string-array>
 
 </resources>

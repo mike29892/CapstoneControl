@@ -37,6 +37,7 @@ public class CapstoneControlActivity extends BarActivity {
 	private Button appliancesButton;
 	private Button settingsButton;
 	private Button doorButton;
+	private Button logsButton;
 	public static List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
 	private boolean splashStarted;
 	public static boolean userChanged = false;
@@ -344,6 +345,17 @@ public class CapstoneControlActivity extends BarActivity {
 				startActivity(myIntent);
 			}
 		});
+		// logs button
+				this.logsButton = (Button) this.findViewById(R.id.logButton);
+				this.logsButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						// featureNotEnabledMsg();
+						Intent myIntent = new Intent(view.getContext(),
+								LogsActivity.class);
+						startActivity(myIntent);
+					}
+				});
 	}
 
 	public void featureNotEnabledMsg() {

@@ -10,6 +10,8 @@ package com.capstonecontrol;
 public final class R {
     public static final class array {
         public static final int alertsArray=0x7f040000;
+        public static final int dateRange_array=0x7f040003;
+        public static final int moduleType_array=0x7f040002;
         public static final int testArray=0x7f040001;
     }
     public static final class attr {
@@ -54,48 +56,55 @@ containing a value of this type.
         public static final int status_icon=0x7f02000f;
     }
     public static final class id {
-        public static final int accountsButton=0x7f0a002b;
-        public static final int aeMessage=0x7f0a0023;
+        public static final int accountsButton=0x7f0a0032;
+        public static final int aeMessage=0x7f0a002a;
         public static final int alertsButton=0x7f0a0003;
-        public static final int appliancesButton=0x7f0a001f;
-        public static final int applyButton=0x7f0a0027;
+        public static final int appliancesButton=0x7f0a0025;
+        public static final int applyButton=0x7f0a002e;
         public static final int barIcon=0x7f0a0002;
         public static final int button1=0x7f0a0005;
-        public static final int buzzerCount=0x7f0a0029;
+        public static final int buzzerCount=0x7f0a0030;
         public static final int clearAlertsButton=0x7f0a0001;
         public static final int connect=0x7f0a000c;
         public static final int connect_footer=0x7f0a000b;
         public static final int connect_text=0x7f0a0007;
-        public static final int dimmerCount=0x7f0a0028;
+        public static final int dateRangeLabel=0x7f0a001f;
+        public static final int dateRangeSpinner=0x7f0a0023;
+        public static final int dimmerCount=0x7f0a002f;
         public static final int disconnect=0x7f0a000f;
         public static final int disconnect_footer=0x7f0a000e;
         public static final int disconnect_text=0x7f0a000d;
         public static final int divider=0x7f0a0009;
-        public static final int doorButton=0x7f0a0021;
+        public static final int doorButton=0x7f0a0027;
         public static final int doorMenu=0x7f0a0011;
         public static final int doorVideo=0x7f0a0017;
         public static final int header=0x7f0a0006;
         public static final int hello_world=0x7f0a001b;
         public static final int hello_world_info=0x7f0a0019;
-        public static final int imageView1=0x7f0a002c;
-        public static final int lightsButton=0x7f0a001e;
+        public static final int imageView1=0x7f0a0033;
+        public static final int lightsButton=0x7f0a0024;
         public static final int lightsMenu=0x7f0a001c;
         public static final int linearLayoutDoor=0x7f0a0012;
         public static final int linearLayoutLights=0x7f0a001d;
+        public static final int logButton=0x7f0a0028;
+        public static final int logMenu=0x7f0a001e;
         public static final int mainBar=0x7f0a0004;
-        public static final int mainLayout=0x7f0a0024;
-        public static final int modulesAccount=0x7f0a0026;
+        public static final int mainLayout=0x7f0a002b;
+        public static final int moduleTypeLabel=0x7f0a0020;
+        public static final int moduleTypeSpinner=0x7f0a0022;
+        public static final int modulesAccount=0x7f0a002d;
         public static final int mqttChannel=0x7f0a0013;
         public static final int mqttValue=0x7f0a0014;
         public static final int myHeader=0x7f0a0010;
         public static final int openDoorButton=0x7f0a0018;
-        public static final int refreshModulesButton=0x7f0a002a;
+        public static final int refreshModulesButton=0x7f0a0031;
         public static final int say_hello=0x7f0a001a;
-        public static final int securityButton=0x7f0a0022;
+        public static final int securityButton=0x7f0a0029;
         public static final int select_account=0x7f0a000a;
         public static final int select_text=0x7f0a0008;
-        public static final int settingsButton=0x7f0a0020;
-        public static final int settingsMenuText=0x7f0a0025;
+        public static final int settingsButton=0x7f0a0026;
+        public static final int settingsMenuText=0x7f0a002c;
+        public static final int submitButton=0x7f0a0021;
         public static final int textView1=0x7f0a0015;
         public static final int textView2=0x7f0a0016;
         public static final int view1=0x7f0a0000;
@@ -111,9 +120,11 @@ containing a value of this type.
         public static final int hello_world=0x7f030007;
         public static final int lights=0x7f030008;
         public static final int list_text_style=0x7f030009;
-        public static final int main=0x7f03000a;
-        public static final int settings=0x7f03000b;
-        public static final int splash_screen=0x7f03000c;
+        public static final int list_text_style2=0x7f03000a;
+        public static final int logs=0x7f03000b;
+        public static final int main=0x7f03000c;
+        public static final int settings=0x7f03000d;
+        public static final int splash_screen=0x7f03000e;
     }
     public static final class menu {
         public static final int alerts=0x7f090000;
@@ -147,6 +158,7 @@ containing a value of this type.
         /**  Message text [CHAR LIMIT=NONE] 
          */
         public static final int contacting_server=0x7f070008;
+        public static final int dateRange_prompt=0x7f070017;
         /**  Button text [CHAR LIMIT=NONE] 
          */
         public static final int disconnect=0x7f070009;
@@ -165,6 +177,7 @@ containing a value of this type.
         /**  Initial "hello, world" response message [CHAR LIMIT=NONE] 
          */
         public static final int hello_world_text=0x7f07000e;
+        public static final int moduleType_prompt=0x7f070016;
         /**  Dialog message text [CHAR LIMIT=NONE] 
          */
         public static final int needs_account=0x7f07000f;

@@ -29,7 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 // This activity handles the common bar at the top of the screen that all other activities share
 // it will also be used to handle sending POST to the server
-public class BarActivity extends Activity {
+public class BarListActivity extends ListActivity {
 
 	// declare variables
 	private Button alertsButton;
@@ -115,12 +115,12 @@ public class BarActivity extends Activity {
 	}
 
 	public void updateAlertCount() {
-		if (alertsList.isEmpty()) {
+		if (BarActivity.alertsList.isEmpty()) {
 			// set 0
 			alertsButton.setText("0");
 		} else {
 			// set to the number of alerts
-			String alertSize = Integer.toString(alertsList.size());
+			String alertSize = Integer.toString(BarActivity.alertsList.size());
 			alertsButton.setText(alertSize);
 		}
 	}

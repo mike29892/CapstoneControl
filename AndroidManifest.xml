@@ -70,6 +70,7 @@
 		<activity android:name=".MjpegView"></activity>
 		<activity android:name=".SettingsActivity"></activity>
 		<activity android:name=".SplashActivity"></activity>
+		<activity android:name=".LogsActivity"></activity>
         
     </application>
 </manifest>
