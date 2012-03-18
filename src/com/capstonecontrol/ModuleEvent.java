@@ -9,6 +9,7 @@ public class ModuleEvent {
 	String user;
 	Date date;
 	String action;
+	int occuranceCount = 0;
 
 	public ModuleEvent(String moduleName, String moduleType, String user,
 			String action, Date date, String value) {
@@ -35,13 +36,39 @@ public class ModuleEvent {
 	public Date getDate() {
 		return date;
 	}
-	
-	public String getAction(){
+
+	public String getAction() {
 		return action;
 	}
-	
-	public String getValue(){
+
+	public String getValue() {
 		return value;
+	}
+
+	public int getOccuranceCount() {
+		return occuranceCount;
+	}
+
+	public void setOccuranceCount(int occuranceCount) {
+		this.occuranceCount = occuranceCount;
+	}
+
+	public void incrementOccuranceCount() {
+		occuranceCount = occuranceCount + 1;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public boolean compareEventsForSuggest(ModuleEvent moduleEvent) {
+		if (this.moduleName.equals(moduleEvent.getModuleName())
+				&& this.moduleType.equals(moduleEvent.getModuleType())
+				&& this.action.equals(moduleEvent.getAction())
+				&& this.date.equals(moduleEvent.getDate())) {
+			return true;
+		}
+		return false;
 	}
 
 	// @TODO figure out why this is needed and how its used

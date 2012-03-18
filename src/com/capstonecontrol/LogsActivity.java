@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.lang.Math;
 
 import com.capstonecontrol.client.ModulesRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.ModuleEventFetchRequest;
-import com.capstonecontrol.client.ModulesRequestFactory.ModuleFetchRequest;
 import com.capstonecontrol.shared.ModuleEventProxy;
-import com.capstonecontrol.shared.ModuleInfoProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -22,7 +21,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -33,9 +31,10 @@ public class LogsActivity extends BarListActivity {
 	private Context mContext = this;
 	private static final String TAG = "LogsActivity";
 	public static List<ModuleEvent> moduleEvents = new ArrayList<ModuleEvent>();
-	public static List<ModuleInfo> modules = new ArrayList<ModuleInfo>();
+	public static List<ModuleEvent> moduleEventsSuggested = new ArrayList<ModuleEvent>();
 	public static ArrayList<String> moduleEventsList = new ArrayList<String>();
 	private Button submitButton;
+	private Button suggestButton;
 	private ListView lv;
 	Spinner dateSpinner;
 	Spinner moduleSpinner;
@@ -56,6 +55,8 @@ public class LogsActivity extends BarListActivity {
 		setUpSpinners();
 		// set up submit button
 		setUpSubmitButton();
+		// set up suggested profile button
+		setUpSuggestButton();
 	}
 
 	private void setUpSubmitButton() {
@@ -65,14 +66,141 @@ public class LogsActivity extends BarListActivity {
 			public void onClick(View view) {
 				// first disable the button
 				submitButton.setEnabled(false);
+				suggestButton.setEnabled(false);
 				// clear previous request
 				moduleEvents.clear();
 				// now get the new info
-				displayRefreshingList();
-				getLogInfo();
+				displayMessageList("Refreshing...");
+				getLogInfo(true,false);
+			}
+		});
+	}
+
+	private void setUpSuggestButton() {
+		this.suggestButton = (Button) this.findViewById(R.id.suggestProfile);
+		this.suggestButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// first disable the button
+				submitButton.setEnabled(false);
+				suggestButton.setEnabled(false);
+				// clear previous request
+				moduleEvents.clear();
+				moduleEventsSuggested.clear();
+				// now get the new info
+				displayMessageList("Calculating suggest profiles...");
+				getLogInfo(false,true);
 			}
 		});
 
+	}
+
+	protected void displaySuggestedProfiles() {
+		String tempString;
+		submitButton.setEnabled(true);
+		suggestButton.setEnabled(true);
+		moduleEventsList.clear();
+		for (int i = 0; i < moduleEventsSuggested.size(); i++) {
+			tempString = moduleEventsSuggested.get(i).getDate().toGMTString();
+			tempString += "      " + moduleEventsSuggested.get(i).getModuleName();
+			tempString += "      " + moduleEventsSuggested.get(i).getModuleType();
+			tempString += "      " + moduleEventsSuggested.get(i).getValue();
+			if (moduleEventsSuggested.get(i).getOccuranceCount()>3) {
+				moduleEventsList.add(tempString);
+			}
+		}
+		ArrayAdapter<String> arrayAdapter =
+		// new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
+		// BarActivity.alertsList);
+		new ArrayAdapter<String>(this, R.layout.list_text_style2,
+				moduleEventsList);
+		lv.setAdapter(arrayAdapter);
+		
+	}
+
+	private void calculateSuggestedProfiles() {
+		ModuleEvent moduleEventI;
+		ModuleEvent moduleEventJ;
+		Date dateI;
+		Date dateJ;
+		Date eventSuggestDate;
+		int fifteenMinIntervals;
+		int timeDifference = 9;
+		int minutesI;
+		int minutesJ;
+		for (int i = 0; i < moduleEvents.size(); i++) {
+			moduleEventI = moduleEvents.get(i);
+			for (int j = 0; j < moduleEvents.size(); j++) {
+				moduleEventJ = moduleEvents.get(j);
+				// now that we have two modules to compare, lets do it
+				// first check to see if same module and type
+				if (moduleEventI.getModuleName().equals(
+						moduleEventJ.getModuleName())
+						&& moduleEventI.getAction().equals(
+								moduleEventJ.getAction())) {
+					if (moduleValueSimiliar(moduleEventI, moduleEventJ)) {
+						dateI = moduleEventI.getDate();
+						dateJ = moduleEventJ.getDate();
+						minutesI = dateI.getHours() * 60 + dateI.getMinutes();
+						minutesJ = dateJ.getHours() * 60 + dateJ.getMinutes();
+						if (Math.abs(minutesI - minutesJ) < timeDifference
+								&& dateI.getDate() == dateJ.getDate()
+								&& dateI.getYear() == dateJ.getYear()
+								&& dateI.getMonth() == dateJ.getMonth()) {
+							// add one to the count for this
+							//create a new moduleEvent based off one of the two compared
+							ModuleEvent moduleEventSuggest = moduleEventJ;
+							//now set the time closest to a 15 minute interval
+							eventSuggestDate = moduleEventSuggest.getDate();
+							fifteenMinIntervals = Math.round((minutesJ + minutesI)/2 / 15);
+							Calendar cal = Calendar.getInstance();       // get calendar instance
+							cal.setTime(eventSuggestDate);                           // set cal to date
+							cal.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
+							cal.set(Calendar.MINUTE, fifteenMinIntervals * 15);                 // set minute in hour
+							cal.set(Calendar.SECOND, 0);                 // set second in minute
+							cal.set(Calendar.MILLISECOND, 0);            // set millis in second
+							eventSuggestDate = cal.getTime();
+							moduleEventSuggest.setDate(eventSuggestDate);
+							//add the object to the list
+							addModuleEventToSuggested(moduleEventSuggest);
+							
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void addModuleEventToSuggested(ModuleEvent moduleEventSuggest) {
+		for (int i=0; i<moduleEventsSuggested.size();i++){
+			if (moduleEventSuggest.compareEventsForSuggest(moduleEventsSuggested.get(i))){
+				moduleEventsSuggested.get(i).incrementOccuranceCount();
+				return;
+			}
+		}		
+		//if not found in the list already add it
+		moduleEventsSuggested.add(moduleEventSuggest);
+	}
+
+	private boolean moduleValueSimiliar(ModuleEvent moduleEventI,
+			ModuleEvent moduleEventJ) {
+		// if we are in here we can assume that the types are equal
+		if (moduleEventI.getModuleType().equals("Dimmer")) {
+			// values are allowed to have some wiggle room
+			// ie dimmer level of 99 is close enough to value of 95 to be
+			// considered equal
+			if (Math.abs(Integer.parseInt(moduleEventI.getValue())
+					- Integer.parseInt(moduleEventJ.getValue())) < 9) {
+				// assume close enough
+				return true;
+			}
+		}
+		if (moduleEventI.getModuleType().equals("Door Buzzer")) {
+			if (moduleEventI.getValue().equals(moduleEventJ.getValue())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void setUpSpinners() {
@@ -93,9 +221,9 @@ public class LogsActivity extends BarListActivity {
 		moduleSpinner.setAdapter(moduleAdapter);
 	}
 
-	private void displayRefreshingList() {
+	private void displayMessageList(String message) {
 		moduleEventsList.clear();
-		moduleEventsList.add("Refreshing...");
+		moduleEventsList.add(message);
 		// create list
 		lv = getListView();
 		ArrayAdapter<String> arrayAdapter =
@@ -109,6 +237,7 @@ public class LogsActivity extends BarListActivity {
 	private void updateEventListView() {
 		// done search for re-enable the submit button
 		submitButton.setEnabled(true);
+		suggestButton.setEnabled(true);
 		String tempString;
 		// clear old list
 		moduleEventsList.clear();
@@ -172,8 +301,9 @@ public class LogsActivity extends BarListActivity {
 		return true;
 	}
 
-	private void getLogInfo() {
+	private void getLogInfo(final boolean display, final boolean suggested) {
 		new AsyncTask<Void, Void, List<ModuleEvent>>() {
+			@SuppressWarnings("unused")
 			String foundModuleEvents;
 
 			@Override
@@ -213,8 +343,15 @@ public class LogsActivity extends BarListActivity {
 
 			protected void onPostExecute(List<ModuleEvent> result) {
 				// if events found that match update the shown list
-				if (!moduleEvents.isEmpty()) {
+				if (!moduleEvents.isEmpty() && display) {
 					updateEventListView();
+				}
+				if (!moduleEvents.isEmpty() && suggested){
+					// now calculate profiles based on the found events
+					// @Todo might need a thread stop until all events are returned.
+					calculateSuggestedProfiles();
+					//now that all counts are calculated, show any above the threshold
+					displaySuggestedProfiles();
 				}
 
 			}
