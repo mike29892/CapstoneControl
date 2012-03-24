@@ -16,11 +16,9 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -39,6 +37,7 @@ public class BarListActivity extends ListActivity {
 	HttpPost httpPost;
 	HttpPost httpPostLog;
 	String progressString;
+	@SuppressWarnings("unused")
 	private Context mContext = this;
 	// must call this method on the oncreate of all the other activities
 	public void enableBar() {

@@ -5,6 +5,7 @@ import org.apache.http.client.methods.HttpPost;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
+import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -56,7 +57,8 @@ public class LightsActivity extends BarActivity {
 	}
 
 	private void createLightSeekBars() {
-		final TextView mqttChannnel = (TextView) this.findViewById(R.id.mqttChannel);
+		final TextView mqttChannnel = (TextView) this
+				.findViewById(R.id.mqttChannel);
 		final TextView mqttValue = (TextView) this.findViewById(R.id.mqttValue);
 		LinearLayout ll = (LinearLayout) this
 				.findViewById(R.id.linearLayoutLights);
@@ -75,34 +77,47 @@ public class LightsActivity extends BarActivity {
 					// add seekbar
 					SeekBar sb = new SeekBar(this);
 					ll.addView(sb);
-					//add listener
+					// add listener
 					sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-						 @Override
-						 public void onStopTrackingTouch(SeekBar arg0) {
-							 
-							 String mqttPath = "/" + CapstoneControlActivity.googleUserName + "/" + CapstoneControlActivity.modules.get(index).getModuleName();
-							 //send post for control
-							 sendPOST(mqttPath,progressString);
-							 //no send post for log
-							 logModuleEvent(CapstoneControlActivity.modules.get(index), "Dim", progressString);
-							 mqttChannnel.setText("MQTT Channel: " + mqttPath);
-							 mqttValue.setText("MQTT Value: " + progressString);
-							 
-						 }
+						@Override
+						public void onStopTrackingTouch(SeekBar arg0) {
 
-						 @Override
-						 public void onStartTrackingTouch(SeekBar arg0) {
-						 }
+							String mqttPath = "/"
+									+ CapstoneControlActivity.googleUserName
+									+ "/"
+									+ CapstoneControlActivity.modules
+											.get(index).getModuleName();
+							// send post for control
+							sendPOST(mqttPath, progressString);
+							// no send post for log
+							logModuleEvent(
+									CapstoneControlActivity.modules.get(index),
+									"Dim", progressString);
+							mqttChannnel.setText("MQTT Channel: " + mqttPath);
+							mqttValue.setText("MQTT Value: " + progressString);
 
-						 @Override
-						 public void onProgressChanged(SeekBar arg0, int progress,
-									boolean fromTouch) {
-							 progressString = Integer.toString(progress);
-						 }
-						});
+						}
+
+						@Override
+						public void onStartTrackingTouch(SeekBar arg0) {
+						}
+
+						@Override
+						public void onProgressChanged(SeekBar arg0,
+								int progress, boolean fromTouch) {
+							progressString = Integer.toString(progress);
+						}
+					});
 				}
 			}
+		}
+
+		if (CapstoneControlActivity.testItemsDisabled) {
+			mqttValue.setEnabled(false);
+			mqttValue.setVisibility(View.GONE);
+			mqttChannnel.setEnabled(false);
+			mqttChannnel.setVisibility(View.GONE);
 		}
 
 	}

@@ -45,6 +45,8 @@ public class CapstoneControlActivity extends BarActivity {
 
 	private static final String TAG = "CapstoneControlActivity";
 
+	public static boolean testItemsDisabled = true;
+
 	/**
 	 * The current context.
 	 */
@@ -81,8 +83,8 @@ public class CapstoneControlActivity extends BarActivity {
 
 			// Display a notification
 			// @TODO find out why below is causing null pointer and crash
-			Util.generateNotification(mContext, String.format(message,
-			accountName));
+			Util.generateNotification(mContext,
+					String.format(message, accountName));
 		}
 	};
 
@@ -125,14 +127,16 @@ public class CapstoneControlActivity extends BarActivity {
 		SharedPreferences prefs = Util.getSharedPreferences(mContext);
 		String connectionStatus = prefs.getString(Util.CONNECTION_STATUS,
 				Util.DISCONNECTED);
-		//first check to see if already connected, if so save username into googleUserName
+		// first check to see if already connected, if so save username into
+		// googleUserName
 		googleUserName = prefs.getString(Util.ACCOUNT_NAME, "Unknown");
-		if (Util.DISCONNECTED.equals(connectionStatus) || googleUserName == null) {
+		if (Util.DISCONNECTED.equals(connectionStatus)
+				|| googleUserName == null) {
 			startActivity(new Intent(this, AccountsActivity.class));
 		}
-		//@TODO the way we fetch modules is a hack job right now
-		//it needs to be completelty rewritten
-		if (modules.size()< 1){
+		// @TODO the way we fetch modules is a hack job right now
+		// it needs to be completelty rewritten
+		if (modules.size() < 1) {
 			getModules();
 		}
 		setScreenContent(R.layout.main);
@@ -151,7 +155,7 @@ public class CapstoneControlActivity extends BarActivity {
 		}
 	}
 
-	void getModules(){
+	void getModules() {
 		new AsyncTask<Void, Void, List<ModuleInfo>>() {
 			@SuppressWarnings("unused")
 			String foundModules;
@@ -216,7 +220,7 @@ public class CapstoneControlActivity extends BarActivity {
 			}
 		}.execute();
 	}
-	
+
 	/**
 	 * Shuts down the activity.
 	 */
@@ -285,6 +289,12 @@ public class CapstoneControlActivity extends BarActivity {
 				}.execute();
 			}
 		});
+		if (CapstoneControlActivity.testItemsDisabled) {
+			securityButton.setEnabled(false);
+			securityButton.setVisibility(View.GONE);
+			aeMessage.setEnabled(false);
+			aeMessage.setVisibility(View.GONE);
+		}
 	}
 
 	/**
@@ -346,16 +356,16 @@ public class CapstoneControlActivity extends BarActivity {
 			}
 		});
 		// logs button
-				this.logsButton = (Button) this.findViewById(R.id.logButton);
-				this.logsButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						// featureNotEnabledMsg();
-						Intent myIntent = new Intent(view.getContext(),
-								LogsActivity.class);
-						startActivity(myIntent);
-					}
-				});
+		this.logsButton = (Button) this.findViewById(R.id.logButton);
+		this.logsButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// featureNotEnabledMsg();
+				Intent myIntent = new Intent(view.getContext(),
+						LogsActivity.class);
+				startActivity(myIntent);
+			}
+		});
 	}
 
 	public void featureNotEnabledMsg() {

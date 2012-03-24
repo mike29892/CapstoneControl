@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class DoorActivity extends BarActivity {
 
-    @Override
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
@@ -29,7 +29,8 @@ public class DoorActivity extends BarActivity {
 	}
 
 	private void createDoorButtons() {
-		final TextView mqttChannnel = (TextView) this.findViewById(R.id.mqttChannel);
+		final TextView mqttChannnel = (TextView) this
+				.findViewById(R.id.mqttChannel);
 		final TextView mqttValue = (TextView) this.findViewById(R.id.mqttValue);
 		LinearLayout linearlayout = (LinearLayout) this
 				.findViewById(R.id.linearLayoutDoor);
@@ -49,18 +50,28 @@ public class DoorActivity extends BarActivity {
 					Button button = new Button(this);
 					button.setText("Open");
 					linearlayout.addView(button);
-					//add listener		
+					// add listener
 					button.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View view) {
-							 String mqttPath = "/" + CapstoneControlActivity.googleUserName + "/" + CapstoneControlActivity.modules.get(index).getModuleName();
-							 sendPOST(mqttPath,progressString);
-							 mqttChannnel.setText("MQTT Channel: " + mqttPath);
-							 mqttValue.setText("MQTT Value: " + "1");
+							String mqttPath = "/"
+									+ CapstoneControlActivity.googleUserName
+									+ "/"
+									+ CapstoneControlActivity.modules
+											.get(index).getModuleName();
+							sendPOST(mqttPath, progressString);
+							mqttChannnel.setText("MQTT Channel: " + mqttPath);
+							mqttValue.setText("MQTT Value: " + "1");
 						}
 					});
 				}
 			}
+		}
+		if (CapstoneControlActivity.testItemsDisabled) {
+			mqttValue.setEnabled(false);
+			mqttValue.setVisibility(View.GONE);
+			mqttChannnel.setEnabled(false);
+			mqttChannnel.setVisibility(View.GONE);
 		}
 
 	}

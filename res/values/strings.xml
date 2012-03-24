@@ -89,6 +89,33 @@
         <item>Light Dimmer</item>
     </string-array>
     
+    <string name="moduleType_prompt_NoAll">Choose a Module Type</string>
+    <string-array name="moduleType_array_NoAll">
+        <item>Door Buzzer</item>
+        <item>Light Dimmer</item>
+    </string-array>
+    
+    <string name="module_event_OffOn">Choose a Module Type</string>
+    <string-array name="module_event_array_OffOn">
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
+    
+        <string name="module_event_decade">Choose a Module Type</string>
+    <string-array name="module_event_array_decade">
+        <item>100</item>
+        <item>90</item>
+        <item>80</item>
+        <item>70</item>
+        <item>60</item>
+        <item>50</item>
+        <item>40</item>
+        <item>30</item>
+        <item>20</item>
+        <item>10</item>
+        <item>0</item>
+    </string-array>
+    
     <string name="dateRange_prompt">Choose a Date Range</string>
     <string-array name="dateRange_array">
         <item>Past Day</item>

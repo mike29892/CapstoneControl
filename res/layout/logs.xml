@@ -64,23 +64,38 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/logMenu"
         android:layout_toRightOf="@+id/dateRangeLabel" />
-
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/suggestProfile"
+        android:layout_above="@+id/linearLayout1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/submitButton" >
 
     </ListView>
-
-    <Button
-        android:id="@+id/suggestProfile"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Suggest a Profile" />
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/suggestProfile"
+            android:layout_width="fill_parent"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Suggest Profile" />
+
+        <Button
+            android:id="@+id/setupProfile"
+            android:layout_width="fill_parent"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content" 
+            android:text="Setup Profile"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

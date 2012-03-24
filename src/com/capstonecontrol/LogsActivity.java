@@ -13,6 +13,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -35,6 +36,7 @@ public class LogsActivity extends BarListActivity {
 	public static ArrayList<String> moduleEventsList = new ArrayList<String>();
 	private Button submitButton;
 	private Button suggestButton;
+	private Button profilesButton;
 	private ListView lv;
 	Spinner dateSpinner;
 	Spinner moduleSpinner;
@@ -55,8 +57,24 @@ public class LogsActivity extends BarListActivity {
 		setUpSpinners();
 		// set up submit button
 		setUpSubmitButton();
+		// set up profiles button
+		setUpProfilesButton();
 		// set up suggested profile button
 		setUpSuggestButton();
+	}
+
+	private void setUpProfilesButton() {
+		this.profilesButton = (Button) this.findViewById(R.id.setupProfile);
+		this.profilesButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// first disable the button
+				Intent myIntent = new Intent(view.getContext(),
+						ScheduledEventsActivity.class);
+				startActivity(myIntent);
+			}
+		});
+		
 	}
 
 	private void setUpSubmitButton() {

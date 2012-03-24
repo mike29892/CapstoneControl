@@ -10,12 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:background="@drawable/mybutton"
         android:text="Lights" />
 
     <Button
         android:id="@+id/appliancesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/mybutton"
         android:layout_below="@+id/lightsButton"
         android:text="Appliances" />
 
@@ -34,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/appliancesButton"
+        android:background="@drawable/mybutton"
         android:text="Door" />
 
     <Button
@@ -42,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/doorButton"
+        android:background="@drawable/mybutton"
         android:text="Event Logs" />
 
     <Button
@@ -49,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/mybutton"
         android:layout_below="@+id/logButton"
         android:text="Check App Engine Connection" />
 
