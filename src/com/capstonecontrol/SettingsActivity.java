@@ -28,6 +28,7 @@ public class SettingsActivity extends BarActivity {
 	public static String serverIPAddress;
 	Button applyButton;
 	Button refreshButton;
+	Button accountsButton;
 	TextView ipAddressField;
 	private Pattern pattern;
 	private Matcher matcher;
@@ -87,9 +88,11 @@ public class SettingsActivity extends BarActivity {
 	}
 
 	public void enableApplyButtonListener() {
-		// create listeners for the buttons
-		// apply button
+		// create buttons
+		this.accountsButton = (Button) this.findViewById(R.id.accountsButton);
+		this.refreshButton = (Button) this.findViewById(R.id.refreshModulesButton);
 		this.applyButton = (Button) this.findViewById(R.id.applyButton);
+		// apply button
 		this.applyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -105,10 +108,13 @@ public class SettingsActivity extends BarActivity {
 		});
 		
 		// refresh modules button
-				this.refreshButton = (Button) this.findViewById(R.id.refreshModulesButton);
+				
 				this.refreshButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
+						//disable the buttons
+						refreshButton.setClickable(false);
+						accountsButton.setClickable(false);
 						//clear module list
 						CapstoneControlActivity.modules.clear();
 						//now get the modules
@@ -121,11 +127,12 @@ public class SettingsActivity extends BarActivity {
 							e.printStackTrace();
 						}
 						setModulesCount();
+						refreshButton.setClickable(true);
+						accountsButton.setClickable(true);
 					}
 				});
 
 		// logout button
-		Button accountsButton = (Button) this.findViewById(R.id.accountsButton);
 		accountsButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {

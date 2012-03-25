@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 // This activity handles the common bar at the top of the screen that all other activities share
 // it will also be used to handle sending POST to the server
+
 public class BarListActivity extends ListActivity {
 
 	// declare variables
@@ -39,6 +40,7 @@ public class BarListActivity extends ListActivity {
 	String progressString;
 	@SuppressWarnings("unused")
 	private Context mContext = this;
+
 	// must call this method on the oncreate of all the other activities
 	public void enableBar() {
 		// enable listener for alerts button
@@ -70,6 +72,10 @@ public class BarListActivity extends ListActivity {
 				addAlert("Fake Test Alert");
 			}
 		});
+		// disable button if alerts is disabled
+		if (CapstoneControlActivity.testItemsDisabled) {
+			barButton.setEnabled(false);
+		}
 		// set up for thread that will search for alerts
 		final Button alertsButton = (Button) this
 				.findViewById(R.id.alertsButton);
@@ -123,30 +129,31 @@ public class BarListActivity extends ListActivity {
 			alertsButton.setText(alertSize);
 		}
 	}
-	
-	public void enablePOST(){
-			//create POST variables
-			//client = new DefaultHttpClient();
-			httpPost = new HttpPost("http://23.21.229.136/message.php");
-			httpPostLog = new HttpPost("http://capstonecontrol.appspot.com/LogModuleEventServlet");
-			HttpParams httpParameters = new BasicHttpParams();
-			// Set the timeout in milliseconds until a connection is established.
-			int timeoutConnection = 3000;
-			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-			// Set the default socket timeout (SO_TIMEOUT) 
-			// in milliseconds which is the timeout for waiting for data.
-			int timeoutSocket = 3000;
-			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
-			httpClient = new DefaultHttpClient(httpParameters);			
-		}
-	
-	
-	public void sendPOST(String channel, String value){
-		//NOW POST
+	public void enablePOST() {
+		// create POST variables
+		// client = new DefaultHttpClient();
+		httpPost = new HttpPost("http://23.21.229.136/message.php");
+		httpPostLog = new HttpPost(
+				"http://capstonecontrol.appspot.com/LogModuleEventServlet");
+		HttpParams httpParameters = new BasicHttpParams();
+		// Set the timeout in milliseconds until a connection is established.
+		int timeoutConnection = 3000;
+		HttpConnectionParams.setConnectionTimeout(httpParameters,
+				timeoutConnection);
+		// Set the default socket timeout (SO_TIMEOUT)
+		// in milliseconds which is the timeout for waiting for data.
+		int timeoutSocket = 3000;
+		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+
+		httpClient = new DefaultHttpClient(httpParameters);
+	}
+
+	public void sendPOST(String channel, String value) {
+		// NOW POST
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair("where",channel));
-		pairs.add(new BasicNameValuePair("message",value));
+		pairs.add(new BasicNameValuePair("where", channel));
+		pairs.add(new BasicNameValuePair("message", value));
 		try {
 			httpPost.setEntity(new UrlEncodedFormEntity(pairs));
 		} catch (UnsupportedEncodingException e) {
@@ -163,33 +170,33 @@ public class BarListActivity extends ListActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	void logModuleEvent(ModuleInfo module, String action, String value) {
-		//log the event in datastore, do it via post
+		// log the event in datastore, do it via post
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair("user",module.getUser()));
-		pairs.add(new BasicNameValuePair("moduleName",module.getModuleName()));
-		pairs.add(new BasicNameValuePair("moduleType",module.getModuleType()));
-		pairs.add(new BasicNameValuePair("action",action));
-		pairs.add(new BasicNameValuePair("message",value));
-			try {
-				httpPostLog.setEntity(new UrlEncodedFormEntity(pairs));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				HttpResponse response = httpClient.execute(httpPostLog);
-				Log.i("HttpResponse", response.getEntity().toString());
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		pairs.add(new BasicNameValuePair("user", module.getUser()));
+		pairs.add(new BasicNameValuePair("moduleName", module.getModuleName()));
+		pairs.add(new BasicNameValuePair("moduleType", module.getModuleType()));
+		pairs.add(new BasicNameValuePair("action", action));
+		pairs.add(new BasicNameValuePair("message", value));
+		try {
+			httpPostLog.setEntity(new UrlEncodedFormEntity(pairs));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			HttpResponse response = httpClient.execute(httpPostLog);
+			Log.i("HttpResponse", response.getEntity().toString());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

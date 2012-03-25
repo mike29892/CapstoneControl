@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,11 +47,15 @@ public class CapstoneControlActivity extends BarActivity {
 	private static final String TAG = "CapstoneControlActivity";
 
 	public static boolean testItemsDisabled = true;
+	
 
 	/**
 	 * The current context.
 	 */
 	private Context mContext = this;
+	
+	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+	SharedPreferences.Editor editor = preferences.edit();
 
 	/**
 	 * A {@link BroadcastReceiver} to receive the response from a register or
@@ -134,8 +139,9 @@ public class CapstoneControlActivity extends BarActivity {
 				|| googleUserName == null) {
 			startActivity(new Intent(this, AccountsActivity.class));
 		}
+		//@TODO now grab modules from prefs
 		// @TODO the way we fetch modules is a hack job right now
-		// it needs to be completelty rewritten
+		// it needs to be completelty rewritten, currently fetches can happen multiple times in a row
 		if (modules.size() < 1) {
 			getModules();
 		}

@@ -362,7 +362,7 @@ public class LogsActivity extends BarListActivity {
 			protected void onPostExecute(List<ModuleEvent> result) {
 				// if events found that match update the shown list
 				if (!moduleEvents.isEmpty() && display) {
-					updateEventListView();
+				 	updateEventListView();
 				}
 				if (!moduleEvents.isEmpty() && suggested){
 					// now calculate profiles based on the found events

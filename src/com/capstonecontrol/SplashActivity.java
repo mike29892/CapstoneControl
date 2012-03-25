@@ -26,6 +26,7 @@ public class SplashActivity extends Activity {
 	private Context mContext = this;
 	private static final String TAG = "SplashActivity";
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -76,7 +77,7 @@ public class SplashActivity extends Activity {
 													.getModuleMacAddr(), tmi
 													.getModuleName(), tmi
 													.getModuleType(), tmi
-													.getUser()));
+													.getUser()));						
 								}
 								if (CapstoneControlActivity.modules.isEmpty())
 									foundModules = "No modules were found!";
@@ -87,8 +88,6 @@ public class SplashActivity extends Activity {
 
 			@Override
 			protected void onPostExecute(List<ModuleInfo> result) {
-				// save into global module list in this class
-
 				// print found modules
 				if (result != null) {
 					for (int i = 0; i < result.size(); i++) {
