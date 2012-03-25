@@ -174,7 +174,7 @@ public class AccountsActivity extends Activity {
 					// instead of finish() go back to the AccountsActivity for
 					// new login.
 					CapstoneControlActivity.googleUserName = (String) account.getText();
-					Intent myIntent = new Intent(v.getContext(),
+				 	Intent myIntent = new Intent(v.getContext(),
 							SplashActivity.class);
 					startActivity(myIntent);
 					myIntent = new Intent(v.getContext(),
@@ -205,12 +205,6 @@ public class AccountsActivity extends Activity {
 			public void onClick(View v) {
 				// Unregister
 				C2DMessaging.unregister(mContext);
-				// finish();
-				// clear the module list so that a new one will get found
-				// CapstoneControlActivity.modules.clear();
-				// instead of finish() go back to the AccountsActivity for new
-				// login.
-				//finish();
 				// clear the module list so that a new one will get found
 				CapstoneControlActivity.modules.clear();
 				// instead of finish() go back to the AccountsActivity for

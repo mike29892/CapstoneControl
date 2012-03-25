@@ -59,7 +59,13 @@ public class DoorActivity extends BarActivity {
 									+ "/"
 									+ CapstoneControlActivity.modules
 											.get(index).getModuleName();
-							sendPOST(mqttPath, progressString);
+							sendPOST(mqttPath, "1");
+							mqttChannnel.setText("MQTT Channel: " + mqttPath);
+							mqttValue.setText("MQTT Value: " + "1");
+							// now send post for log
+							logModuleEvent(
+									CapstoneControlActivity.modules.get(index),
+									"Open", "1");
 							mqttChannnel.setText("MQTT Channel: " + mqttPath);
 							mqttValue.setText("MQTT Value: " + "1");
 						}
