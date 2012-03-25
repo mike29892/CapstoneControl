@@ -11,6 +11,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +33,7 @@ public class SettingsActivity extends BarActivity {
 	TextView ipAddressField;
 	private Pattern pattern;
 	private Matcher matcher;
+	ProgressDialog dialog;
 
 	private Context mContext = this;
 	@SuppressWarnings("unused")
@@ -112,23 +114,13 @@ public class SettingsActivity extends BarActivity {
 				this.refreshButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						//disable the buttons
-						refreshButton.setClickable(false);
-						accountsButton.setClickable(false);
+						//open dialog box
+						dialog = ProgressDialog.show(SettingsActivity.this, "", 
+		                        "Refreshing Modules...", true);
 						//clear module list
 						CapstoneControlActivity.modules.clear();
 						//now get the modules
 						getModuleInfo();
-						//refresh the number of modules
-						try {
-							Thread.sleep(2000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						setModulesCount();
-						refreshButton.setClickable(true);
-						accountsButton.setClickable(true);
 					}
 				});
 
@@ -230,7 +222,7 @@ public class SettingsActivity extends BarActivity {
 		new AsyncTask<Void, Void, List<ModuleInfo>>() {
 			@SuppressWarnings("unused")
 			String foundModules;
-
+			//popup 
 			@Override
 			protected List<ModuleInfo> doInBackground(Void... arg0) {
 				ModulesRequestFactory requestFactory = Util.getRequestFactory(
@@ -282,12 +274,10 @@ public class SettingsActivity extends BarActivity {
 				}
 
 				foundModules += ".";
-				try {
-					Thread.sleep(1500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//close dialog box
+				dialog.dismiss();
+				//refresh the number of modules
+				setModulesCount();
 			}
 		}.execute();
 

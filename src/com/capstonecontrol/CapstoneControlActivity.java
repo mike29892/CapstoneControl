@@ -12,6 +12,7 @@ import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ public class CapstoneControlActivity extends BarActivity {
 	private boolean splashStarted;
 	public static boolean userChanged = false;
 	public static String googleUserName;
+	ProgressDialog dialog;
 
 	private static final String TAG = "CapstoneControlActivity";
 
@@ -140,6 +142,9 @@ public class CapstoneControlActivity extends BarActivity {
 		// @TODO the way we fetch modules is a hack job right now
 		// it needs to be completelty rewritten, currently fetches can happen multiple times in a row
 		if (modules.size() < 1) {
+			//open dialog box
+			dialog = ProgressDialog.show(CapstoneControlActivity.this, "", 
+                    "Refreshing Modules...", true);
 			getModules();
 		}
 		setScreenContent(R.layout.main);
@@ -214,12 +219,7 @@ public class CapstoneControlActivity extends BarActivity {
 				}
 
 				foundModules += ".";
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				dialog.dismiss();
 			}
 		}.execute();
 	}
