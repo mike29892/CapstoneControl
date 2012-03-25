@@ -54,9 +54,6 @@ public class CapstoneControlActivity extends BarActivity {
 	 */
 	private Context mContext = this;
 	
-	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-	SharedPreferences.Editor editor = preferences.edit();
-
 	/**
 	 * A {@link BroadcastReceiver} to receive the response from a register or
 	 * unregister request, and to update the UI.
