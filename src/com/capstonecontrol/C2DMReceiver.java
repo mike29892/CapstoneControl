@@ -21,6 +21,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 
 /**
  * Receive a push message from the Cloud to Device Messaging (C2DM) service.
@@ -79,5 +80,9 @@ public class C2DMReceiver extends C2DMBaseReceiver {
          * Replace this with your application-specific code
          */
         MessageDisplay.displayMessage(context, intent);
+        //now add alert to the list
+        Bundle extras = intent.getExtras();
+        String message = (String) extras.get("message");
+        BarActivity.alertsList.add(message);
     }
 }

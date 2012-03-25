@@ -117,7 +117,7 @@ public class Util {
         Intent intent = new Intent(context, AlertsActivity.class);
 	
         Notification notification = new Notification(icon, message, when);
-        notification.setLatestEventInfo(context, "C2DM Example", message,
+        notification.setLatestEventInfo(context, "Capstone Control Alert", message,
                 PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT));
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 

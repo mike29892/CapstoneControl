@@ -40,12 +40,13 @@ public class MessageDisplay {
         if (extras != null) {
             String sender = (String) extras.get("sender");
             String message = (String) extras.get("message");
-            Util.generateNotification(context, "Message from " + sender + ": " + message);
+            //Util.generateNotification(context, "Message from " + sender + ": " + message);
+            Util.generateNotification(context, message);
             playNotificationSound(context);
         }
     }
 
-    private static void playNotificationSound(Context context) {
+    public static void playNotificationSound(Context context) {
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         if (uri != null) {
             Ringtone rt = RingtoneManager.getRingtone(context, uri);
