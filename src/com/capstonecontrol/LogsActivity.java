@@ -74,7 +74,7 @@ public class LogsActivity extends BarListActivity {
 				startActivity(myIntent);
 			}
 		});
-		
+
 	}
 
 	private void setUpSubmitButton() {
@@ -89,7 +89,7 @@ public class LogsActivity extends BarListActivity {
 				moduleEvents.clear();
 				// now get the new info
 				displayMessageList("Refreshing...");
-				getLogInfo(true,false);
+				getLogInfo(true, false);
 			}
 		});
 	}
@@ -106,8 +106,8 @@ public class LogsActivity extends BarListActivity {
 				moduleEvents.clear();
 				moduleEventsSuggested.clear();
 				// now get the new info
-				displayMessageList("Calculating suggest profiles...");
-				getLogInfo(false,true);
+				displayMessageList("Calculating suggested profiles...");
+				getLogInfo(false, true);
 			}
 		});
 
@@ -118,12 +118,26 @@ public class LogsActivity extends BarListActivity {
 		submitButton.setEnabled(true);
 		suggestButton.setEnabled(true);
 		moduleEventsList.clear();
+		int hour, minute;
 		for (int i = 0; i < moduleEventsSuggested.size(); i++) {
-			tempString = moduleEventsSuggested.get(i).getDate().toGMTString();
-			tempString += "      " + moduleEventsSuggested.get(i).getModuleName();
-			tempString += "      " + moduleEventsSuggested.get(i).getModuleType();
+			hour = moduleEventsSuggested.get(i).getDate().getHours();
+			minute = moduleEventsSuggested.get(i).getDate().getMinutes();
+			if (hour < 10) {
+				tempString = "0" + Integer.toString(hour) + ":";
+			} else {
+				tempString = Integer.toString(hour) + ":";
+			}
+			if (minute < 10) {
+				tempString += "0" + Integer.toString(minute) + " GMT";
+			} else {
+				tempString += Integer.toString(minute) + " GMT";
+			}
+			tempString += "      "
+					+ moduleEventsSuggested.get(i).getModuleName();
+			tempString += "      "
+					+ moduleEventsSuggested.get(i).getModuleType();
 			tempString += "      " + moduleEventsSuggested.get(i).getValue();
-			if (moduleEventsSuggested.get(i).getOccuranceCount()>3) {
+			if (moduleEventsSuggested.get(i).getOccuranceCount() > 3) {
 				moduleEventsList.add(tempString);
 			}
 		}
@@ -133,7 +147,7 @@ public class LogsActivity extends BarListActivity {
 		new ArrayAdapter<String>(this, R.layout.list_text_style2,
 				moduleEventsList);
 		lv.setAdapter(arrayAdapter);
-		
+
 	}
 
 	private void calculateSuggestedProfiles() {
@@ -162,26 +176,34 @@ public class LogsActivity extends BarListActivity {
 						minutesI = dateI.getHours() * 60 + dateI.getMinutes();
 						minutesJ = dateJ.getHours() * 60 + dateJ.getMinutes();
 						if (Math.abs(minutesI - minutesJ) < timeDifference
-								&& dateI.getDate() == dateJ.getDate()
 								&& dateI.getYear() == dateJ.getYear()
 								&& dateI.getMonth() == dateJ.getMonth()) {
 							// add one to the count for this
-							//create a new moduleEvent based off one of the two compared
+							// create a new moduleEvent based off one of the two
+							// compared
 							ModuleEvent moduleEventSuggest = moduleEventJ;
-							//now set the time closest to a 15 minute interval
-							eventSuggestDate = moduleEventSuggest.getDate();
-							fifteenMinIntervals = Math.round((minutesJ + minutesI)/2 / 15);
-							Calendar cal = Calendar.getInstance();       // get calendar instance
-							cal.setTime(eventSuggestDate);                           // set cal to date
-							cal.set(Calendar.HOUR_OF_DAY, 0);            // set hour to midnight
-							cal.set(Calendar.MINUTE, fifteenMinIntervals * 15);                 // set minute in hour
-							cal.set(Calendar.SECOND, 0);                 // set second in minute
-							cal.set(Calendar.MILLISECOND, 0);            // set millis in second
+							// now set the time closest to a 15 minute interval
+							eventSuggestDate = new Date();
+							fifteenMinIntervals = Math
+									.round((minutesJ + minutesI) / 2 / 15);
+							Calendar cal = Calendar.getInstance(); // get
+																	// calendar
+																	// instance
+							cal.setTime(eventSuggestDate); // set cal to date
+							cal.set(Calendar.HOUR_OF_DAY, 0); // set hour to
+																// midnight
+							cal.set(Calendar.MINUTE, fifteenMinIntervals * 15); // set
+																				// minute
+																				// in
+																				// hour
+							cal.set(Calendar.SECOND, 0); // set second in minute
+							cal.set(Calendar.MILLISECOND, 0); // set millis in
+																// second
 							eventSuggestDate = cal.getTime();
 							moduleEventSuggest.setDate(eventSuggestDate);
-							//add the object to the list
+							// add the object to the list
 							addModuleEventToSuggested(moduleEventSuggest);
-							
+
 						}
 					}
 				}
@@ -190,13 +212,14 @@ public class LogsActivity extends BarListActivity {
 	}
 
 	private void addModuleEventToSuggested(ModuleEvent moduleEventSuggest) {
-		for (int i=0; i<moduleEventsSuggested.size();i++){
-			if (moduleEventSuggest.compareEventsForSuggest(moduleEventsSuggested.get(i))){
+		for (int i = 0; i < moduleEventsSuggested.size(); i++) {
+			if (moduleEventSuggest
+					.compareEventsForSuggest(moduleEventsSuggested.get(i))) {
 				moduleEventsSuggested.get(i).incrementOccuranceCount();
 				return;
 			}
-		}		
-		//if not found in the list already add it
+		}
+		// if not found in the list already add it
 		moduleEventsSuggested.add(moduleEventSuggest);
 	}
 
@@ -362,13 +385,15 @@ public class LogsActivity extends BarListActivity {
 			protected void onPostExecute(List<ModuleEvent> result) {
 				// if events found that match update the shown list
 				if (!moduleEvents.isEmpty() && display) {
-				 	updateEventListView();
+					updateEventListView();
 				}
-				if (!moduleEvents.isEmpty() && suggested){
+				if (!moduleEvents.isEmpty() && suggested) {
 					// now calculate profiles based on the found events
-					// @Todo might need a thread stop until all events are returned.
+					// @Todo might need a thread stop until all events are
+					// returned.
 					calculateSuggestedProfiles();
-					//now that all counts are calculated, show any above the threshold
+					// now that all counts are calculated, show any above the
+					// threshold
 					displaySuggestedProfiles();
 				}
 

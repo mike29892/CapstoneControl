@@ -4,7 +4,7 @@
         android:paddingTop="2dip" 
         android:paddingBottom="3dip"
         android:textColor = "#FFFFFF"
-        android:textSize="16px"
+        android:textSize="18px"
         android:divider="#FFFFFF"
         android:dividerHeight="4px"
     android:layout_width="fill_parent" 

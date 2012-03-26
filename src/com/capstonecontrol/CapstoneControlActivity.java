@@ -181,7 +181,6 @@ public class CapstoneControlActivity extends BarActivity {
 							public void onFailure(ServerFailure error) {
 								// do nothing, no modules found
 								foundModules = "There was an error!";
-								dialog.dismiss();
 							}
 
 							@Override
@@ -202,6 +201,7 @@ public class CapstoneControlActivity extends BarActivity {
 									foundModules = "No modules were found!";
 							}
 						});
+				dialog.dismiss();
 				return CapstoneControlActivity.modules;
 			}
 
@@ -220,6 +220,11 @@ public class CapstoneControlActivity extends BarActivity {
 				}
 
 				foundModules += ".";
+				dialog.dismiss();
+			}
+			
+			@Override
+			protected void onCancelled(){
 				dialog.dismiss();
 			}
 		}.execute();

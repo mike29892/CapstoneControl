@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class ScheduledEventsActivity extends BarActivity {
@@ -28,12 +29,16 @@ public class ScheduledEventsActivity extends BarActivity {
 	private Context mContext = this;
 	private Button moduleButton, timeButton, occuranceButton,
 			daysAndDateButton, valueButton, submitButton;
-	private int hour, minute, day, month, year;
+	private int hour, minute, day, month, year, value, moduleInt;
 	private final int TIME_DIALOG_ID = 0;
 	private final int DATE_DIALOG_ID = 1;
 	private final int VALUE_DIALOG_ID = 2;
+	private final int MODULE_DIALOG_ID = 3;
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 	private DatePickerDialog.OnDateSetListener mDateSetListener;
+	private NumberPicker.OnValueChangeListener mValueSetListener;
+	private NumberPicker.OnValueChangeListener mModuleSetListener;
+	private NumberPicker valuePicker, modulePicker;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +117,33 @@ public class ScheduledEventsActivity extends BarActivity {
 				showDialog(VALUE_DIALOG_ID);
 			}
 		});
+		// the callback received when the user "sets" the time in the dialog
+		mValueSetListener = new NumberPicker.OnValueChangeListener() {
+
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				value = newVal;
+				updateValueDisplay();
+			}
+		};
+
+		// code for the module button
+		moduleButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showDialog(MODULE_DIALOG_ID);
+			}
+		});
+		// the callback received when the user "sets" the time in the dialog
+		mModuleSetListener = new NumberPicker.OnValueChangeListener() {
+
+			@Override
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
+				moduleInt = newVal;
+				updateModuleDisplay();
+			}
+		};
 	}
 
 	// updates the time we display in the TextView
@@ -125,6 +157,16 @@ public class ScheduledEventsActivity extends BarActivity {
 		daysAndDateButton.setText("Date/Days: "
 				+ new StringBuilder().append(month).append("/").append(day)
 						.append("/").append(year));
+	}
+
+	private void updateValueDisplay() {
+		daysAndDateButton
+				.setText("Value: " + new StringBuilder().append(value));
+	}
+	
+	private void updateModuleDisplay() {
+		daysAndDateButton
+				.setText("Module: " + new StringBuilder().append(CapstoneControlActivity.modules.get(moduleInt).getModuleName()));
 	}
 
 	private static String pad(int c) {
@@ -150,16 +192,42 @@ public class ScheduledEventsActivity extends BarActivity {
 			return new DatePickerDialog(this, mDateSetListener, year, month,
 					day);
 		case VALUE_DIALOG_ID:
-			Spinner valueSpinner = new Spinner(mContext);
-			final ArrayAdapter<CharSequence> valueAdapter = ArrayAdapter
-					.createFromResource(this, R.array.module_event_array_OffOn,
-							android.R.layout.simple_spinner_item);
-			valueAdapter
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			valueSpinner.setAdapter(valueAdapter);
+			valuePicker = new NumberPicker(mContext);
+			valuePicker.setMaxValue(100);
+			valuePicker.setMinValue(0);
 			return new AlertDialog.Builder(this)
-					.setTitle("Function not yet implemented.")
-					.setView(valueSpinner)
+					.setTitle("Select value to send:")
+					.setView(valuePicker)
+					// .setMessage("")
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// do nothing, returns to the main menu
+								}
+							})
+					/*
+					 * .setPositiveButton("Yes", new
+					 * DialogInterface.OnClickListener() { public void
+					 * onClick(DialogInterface dialog, int which) { // continue
+					 * with delete } }) .setNegativeButton("No", new
+					 * DialogInterface.OnClickListener() { public void
+					 * onClick(DialogInterface dialog, int which) { // do
+					 * nothing } })
+					 */
+					.show();
+		case MODULE_DIALOG_ID:
+			//create array of module names
+			String[] moduleNames= new String[CapstoneControlActivity.modules.size()];
+			for (int i=0; i< CapstoneControlActivity.modules.size();i++){
+				moduleNames[i] = CapstoneControlActivity.modules.get(i).getModuleName();
+			}
+			modulePicker = new NumberPicker(mContext);
+			valuePicker.setMaxValue(moduleNames.length);
+			modulePicker.setMinValue(0);
+			return new AlertDialog.Builder(this)
+					.setTitle("Select Module:")
+					.setView(modulePicker)
 					// .setMessage("")
 					.setPositiveButton("Ok",
 							new DialogInterface.OnClickListener() {

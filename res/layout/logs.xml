@@ -14,16 +14,7 @@
         android:layout_below="@layout/bar"
         android:layout_marginTop="80dp"
         android:text="Event Logs Menu:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutDoor"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/doorMenu"
-        android:orientation="vertical" >
-    </LinearLayout>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/dateRangeLabel"
@@ -34,7 +25,60 @@
         android:text="Date Range: "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    
+    <Spinner
+        android:id="@+id/dateRangeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logMenu"
+        android:layout_toRightOf="@+id/dateRangeLabel" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/suggestProfile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Suggest Profile" />
+
+        <Button
+            android:id="@+id/setupProfile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:text="Setup Profile" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/blankSpace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dateRangeLabel"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/moduleTypeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/blankSpace"
+        android:text="Module Type: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/moduleTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/moduleTypeLabel"
+        android:layout_toRightOf="@+id/moduleTypeLabel" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
@@ -52,61 +96,5 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/moduleTypeLabel"
         android:text="Submit" />
-    <TextView
-        android:id="@+id/moduleTypeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateRangeLabel"
-        android:text="Module Type: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/moduleTypeLabel"
-        android:text="Submit" />
-
-    <Spinner
-        android:id="@+id/dateRangeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logMenu"
-        android:layout_toRightOf="@+id/dateRangeLabel" />
-
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
-
-        <Button
-            android:id="@+id/suggestProfile"
-            android:layout_width="fill_parent"
-            android:layout_weight=".5"
-            android:layout_height="wrap_content"
-            android:text="Suggest Profile" />
-
-        <Button
-            android:id="@+id/setupProfile"
-            android:layout_width="fill_parent"
-            android:layout_weight=".5"
-            android:layout_height="wrap_content" 
-            android:text="Setup Profile"/>
-
-    </LinearLayout>
-
-    <Spinner
-        android:id="@+id/moduleTypeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/submitButton"
-                android:layout_marginTop="200dp"
-        android:layout_toRightOf="@+id/moduleTypeLabel" />
 
 </RelativeLayout>
