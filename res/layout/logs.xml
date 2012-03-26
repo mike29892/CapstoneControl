@@ -34,6 +34,24 @@
         android:text="Date Range: "
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/submitButton" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/moduleTypeLabel"
+        android:text="Submit" />
     <TextView
         android:id="@+id/moduleTypeLabel"
         android:layout_width="wrap_content"
@@ -52,28 +70,13 @@
         android:text="Submit" />
 
     <Spinner
-        android:id="@+id/moduleTypeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dateRangeLabel"
-        android:layout_toRightOf="@+id/moduleTypeLabel" />
-
-    <Spinner
         android:id="@+id/dateRangeSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logMenu"
         android:layout_toRightOf="@+id/dateRangeLabel" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout1"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/submitButton" >
 
-    </ListView>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -97,5 +100,13 @@
             android:text="Setup Profile"/>
 
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/moduleTypeSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitButton"
+                android:layout_marginTop="200dp"
+        android:layout_toRightOf="@+id/moduleTypeLabel" />
 
 </RelativeLayout>

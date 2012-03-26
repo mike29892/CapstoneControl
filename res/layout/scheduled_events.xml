@@ -3,171 +3,59 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/logMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@layout/bar"
-        android:layout_marginTop="80dp"
-        android:text="Event Schedule Menu:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutDoor"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/doorMenu"
-        android:orientation="vertical" >
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/dateRangeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/logMenu"
-        android:text="Date of Event: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/moduleTypeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateRangeLabel"
-        android:text="Module Type: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/moduleTypeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dateRangeLabel"
-        android:layout_toRightOf="@+id/moduleTypeLabel" />
-
-    <TextView
-        android:id="@+id/daysText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/moduleTypeSpinner"
-        android:text="Days: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <CheckBox
-        android:id="@+id/mondayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/moduleTypeLabel"
-        android:layout_toRightOf="@+id/daysText"
-        android:text="M" />
-
-    <CheckBox
-        android:id="@+id/tuesdayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/mondayCheckBox"
-        android:layout_alignBottom="@+id/mondayCheckBox"
-        android:layout_toRightOf="@+id/mondayCheckBox"
-        android:text="Tu" />
-
-    <CheckBox
-        android:id="@+id/wednesdayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tuesdayCheckBox"
-        android:layout_alignBottom="@+id/tuesdayCheckBox"
-        android:layout_toRightOf="@+id/tuesdayCheckBox"
-        android:text="W" />
-
-    <CheckBox
-        android:id="@+id/fridayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/mondayCheckBox"
-        android:text="F" />
-
-    <CheckBox
-        android:id="@+id/saturdayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/fridayCheckBox"
-        android:layout_alignBottom="@+id/fridayCheckBox"
-        android:layout_toRightOf="@+id/fridayCheckBox"
-        android:text="Sa" />
-
-    <Spinner
-        android:id="@+id/dateRangeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/moduleTypeLabel"
-        android:layout_alignRight="@+id/logMenu" />
-
-    <TextView
-        android:id="@+id/valueText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/fridayCheckBox"
-        android:text="Value: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/valueSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/valueText"
-        android:layout_toRightOf="@+id/valueText" />
+    <include layout="@layout/bar" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/moduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/mybutton"
+        android:text="Module: Please Select" />
+
+    <Button
+        android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="Add Event" />
+        android:text="Schedule Event" />
 
-    <TextView
-        android:id="@+id/scheduledEventsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/valueText"
-        android:text="List of Scheduled Events:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ListView
-        android:id="@android:id/list"
+    <Button
+        android:id="@+id/timeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/addButton"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/scheduledEventsText" >
-    </ListView>
+        android:layout_below="@+id/moduleButton"
+        android:background="@drawable/mybutton"
+        android:text="Time: Please Select" />
 
-    <CheckBox
-        android:id="@+id/sundayCheckBox"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/occuranceButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/valueSpinner"
-        android:layout_toRightOf="@+id/mondayCheckBox"
-        android:text="Su" />
-
-    <CheckBox
-        android:id="@+id/thursdayCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sundayCheckBox"
-        android:layout_toRightOf="@+id/scheduledEventsText"
-        android:text="Th" />
-
-    <include
-        android:id="@+id/myHeader"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        layout="@layout/bar" />
+        android:layout_below="@+id/timeButton"
+        android:background="@drawable/mybutton"
+        android:text="Occurance: Once" />
+
+    <Button
+        android:id="@+id/daysAndDateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/occuranceButton"
+        android:background="@drawable/mybutton"
+        android:text="Date/Days: Please Select" />
+
+    <Button
+        android:id="@+id/valueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/daysAndDateButton"
+        android:background="@drawable/mybutton"
+        android:text="Value: Please Select" />
 
 </RelativeLayout>
