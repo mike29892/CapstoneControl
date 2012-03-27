@@ -8,7 +8,7 @@ public class ScheduledModuleEvent {
 	String moduleType;
 	String user;
 	Date date;
-	String schedDate;
+	Date schedDate;
 	String action;
 	int hours, minutes, day, month, year;
 	boolean active, reoccurence;
@@ -18,7 +18,7 @@ public class ScheduledModuleEvent {
 			String user, String action, Date date, String value, boolean mon,
 			boolean tue, boolean wed, boolean thu, boolean fri, boolean sat,
 			boolean sun, boolean active, int hours, int minutes,
-			String schedDate, int year, int day, boolean reoccurence) {
+			Date schedDate, int year, int day, boolean reoccurence) {
 		this.moduleName = moduleName;
 		this.moduleType = moduleType;
 		this.user = user;
@@ -53,7 +53,7 @@ public class ScheduledModuleEvent {
 		return reoccurence;
 	}
 	
-	public String getSchedDate(){
+	public Date getSchedDate(){
 		return schedDate;
 	}
 	

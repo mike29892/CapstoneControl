@@ -303,7 +303,7 @@ public class LogsActivity extends BarListActivity {
 		// clear old list
 		moduleEventsList.clear();
 		for (int i = 0; i < scheduledModuleEvents.size(); i++) {
-			tempString = scheduledModuleEvents.get(i).getSchedDate();
+			tempString = scheduledModuleEvents.get(i).getSchedDate().toLocaleString();
 			tempString += "      " + scheduledModuleEvents.get(i).getModuleName();
 			tempString += "      " + scheduledModuleEvents.get(i).getModuleType();
 			tempString += "      " + scheduledModuleEvents.get(i).getValue();
