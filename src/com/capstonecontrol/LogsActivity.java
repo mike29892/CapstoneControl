@@ -9,7 +9,9 @@ import java.lang.Math;
 
 import com.capstonecontrol.client.ModulesRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.ModuleEventFetchRequest;
+import com.capstonecontrol.client.ModulesRequestFactory.ScheduledModuleEventFetchRequest;
 import com.capstonecontrol.shared.ModuleEventProxy;
+import com.capstonecontrol.shared.ScheduledModuleEventProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -421,19 +423,19 @@ public class LogsActivity extends BarListActivity {
 	}
 
 	protected void getScheduledInfo() {
-		new AsyncTask<Void, Void, List<ModuleEvent>>() {
+		new AsyncTask<Void, Void, List<ScheduledModuleEvent>>() {
 			@SuppressWarnings("unused")
 			String foundModuleEvents;
 
 			@Override
-			protected List<ModuleEvent> doInBackground(Void... arg0) {
+			protected List<ScheduledModuleEvent> doInBackground(Void... arg0) {
 				ModulesRequestFactory requestFactory = Util.getRequestFactory(
 						mContext, ModulesRequestFactory.class);
-				final ModuleEventFetchRequest request = (ModuleEventFetchRequest) requestFactory
+				final ScheduledModuleEventFetchRequest request = (ScheduledModuleEventFetchRequest) requestFactory
 						.moduleEventFetchRequest();
 				Log.i(TAG, "Sending request to server");
 				request.getModules().fire(
-						new Receiver<List<ModuleEventProxy>>() {
+						new Receiver<List<ScheduledModuleEventProxy>>() {
 							@Override
 							public void onFailure(ServerFailure error) {
 								// do nothing, no modules found
@@ -441,23 +443,23 @@ public class LogsActivity extends BarListActivity {
 							}
 
 							@Override
-							public void onSuccess(List<ModuleEventProxy> arg0) {
+							public void onSuccess(List<ScheduledModuleEventProxy> arg0) {
 								foundModuleEvents = "The module events found were: ";
 								for (int i = 0; i < arg0.size(); i++) {
 									// create temporary module infro
 									// proxy, tmi
-									ModuleEventProxy tmi = arg0.get(i);
-									moduleEvents.add(new ModuleEvent(tmi
+									ScheduledModuleEventProxy tmi = arg0.get(i);
+									scheduledModuleEvents.add(new ScheduledModuleEvent(tmi
 											.getModuleName(), tmi
 											.getModuleType(), tmi.getUser(),
 											tmi.getAction(), tmi.getDate(), tmi
-													.getValue()));
+													.getValue(), false, false, false, false, false, false, false, false, i, i, foundModuleEvents, i, i, false));
 								}
 								if (moduleEvents.isEmpty())
 									foundModuleEvents = "No module events were found!";
 							}
 						});
-				return moduleEvents;
+				return scheduledModuleEvents;
 			}
 
 			protected void onPostExecute(List<ModuleEvent> result) {
