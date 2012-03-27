@@ -9,13 +9,12 @@ package com.capstonecontrol;
 
 public final class R {
     public static final class array {
-        public static final int alertsArray=0x7f040000;
-        public static final int dateRange_array=0x7f040006;
-        public static final int moduleType_array=0x7f040002;
-        public static final int moduleType_array_NoAll=0x7f040003;
-        public static final int module_event_array_OffOn=0x7f040004;
-        public static final int module_event_array_decade=0x7f040005;
-        public static final int testArray=0x7f040001;
+        public static final int dateRange_array=0x7f080005;
+        public static final int eventType_array=0x7f080000;
+        public static final int moduleType_array=0x7f080001;
+        public static final int moduleType_array_NoAll=0x7f080002;
+        public static final int module_event_array_OffOn=0x7f080003;
+        public static final int module_event_array_decade=0x7f080004;
     }
     public static final class attr {
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
@@ -28,17 +27,17 @@ containing a value of this type.
         public static final int title=0x7f010000;
     }
     public static final class color {
-        public static final int actionbar_background_end=0x7f050003;
-        public static final int actionbar_background_item_pressed_end=0x7f050005;
-        public static final int actionbar_background_item_pressed_start=0x7f050004;
-        public static final int actionbar_background_start=0x7f050002;
-        public static final int actionbar_separator=0x7f050000;
-        public static final int actionbar_title=0x7f050001;
+        public static final int actionbar_background_end=0x7f040003;
+        public static final int actionbar_background_item_pressed_end=0x7f040005;
+        public static final int actionbar_background_item_pressed_start=0x7f040004;
+        public static final int actionbar_background_start=0x7f040002;
+        public static final int actionbar_separator=0x7f040000;
+        public static final int actionbar_title=0x7f040001;
     }
     public static final class dimen {
-        public static final int actionbar_height=0x7f060000;
-        public static final int actionbar_item_height=0x7f060001;
-        public static final int actionbar_item_width=0x7f060002;
+        public static final int actionbar_height=0x7f050000;
+        public static final int actionbar_item_height=0x7f050001;
+        public static final int actionbar_item_width=0x7f050002;
     }
     public static final class drawable {
         public static final int alert_button=0x7f020000;
@@ -68,15 +67,15 @@ containing a value of this type.
         public static final int appliancesButton=0x7f0a0029;
         public static final int applyButton=0x7f0a0037;
         public static final int barIcon=0x7f0a0002;
-        public static final int blankSpace=0x7f0a0024;
+        public static final int blankSpace=0x7f0a0021;
         public static final int button1=0x7f0a0005;
         public static final int buzzerCount=0x7f0a0039;
         public static final int clearAlertsButton=0x7f0a0001;
         public static final int connect=0x7f0a000c;
         public static final int connect_footer=0x7f0a000b;
         public static final int connect_text=0x7f0a0007;
-        public static final int dateRangeLabel=0x7f0a001f;
-        public static final int dateRangeSpinner=0x7f0a0020;
+        public static final int dateRangeLabel=0x7f0a0022;
+        public static final int dateRangeSpinner=0x7f0a0025;
         public static final int daysAndDateButton=0x7f0a0032;
         public static final int dimmerCount=0x7f0a0038;
         public static final int disconnect=0x7f0a000f;
@@ -92,16 +91,15 @@ containing a value of this type.
         public static final int imageView1=0x7f0a003c;
         public static final int lightsButton=0x7f0a0028;
         public static final int lightsMenu=0x7f0a001c;
-        public static final int linearLayout1=0x7f0a0021;
+        public static final int linearLayout1=0x7f0a001e;
         public static final int linearLayoutDoor=0x7f0a0012;
         public static final int linearLayoutLights=0x7f0a001d;
         public static final int logButton=0x7f0a002c;
-        public static final int logMenu=0x7f0a001e;
         public static final int mainBar=0x7f0a0004;
         public static final int mainLayout=0x7f0a0034;
         public static final int moduleButton=0x7f0a002f;
-        public static final int moduleTypeLabel=0x7f0a0025;
-        public static final int moduleTypeSpinner=0x7f0a0026;
+        public static final int moduleTypeLabel=0x7f0a0023;
+        public static final int moduleTypeSpinner=0x7f0a0024;
         public static final int modulesAccount=0x7f0a0036;
         public static final int mqttChannel=0x7f0a0013;
         public static final int mqttValue=0x7f0a0014;
@@ -115,12 +113,13 @@ containing a value of this type.
         public static final int select_text=0x7f0a0008;
         public static final int settingsButton=0x7f0a002a;
         public static final int settingsMenuText=0x7f0a0035;
-        public static final int setupProfile=0x7f0a0023;
-        public static final int submitButton=0x7f0a0027;
-        public static final int suggestProfile=0x7f0a0022;
+        public static final int setupProfile=0x7f0a0020;
+        public static final int submitButton=0x7f0a0026;
+        public static final int suggestProfile=0x7f0a001f;
         public static final int textView1=0x7f0a0015;
         public static final int textView2=0x7f0a0016;
         public static final int timeButton=0x7f0a0031;
+        public static final int typeSpinner=0x7f0a0027;
         public static final int valueButton=0x7f0a0033;
         public static final int view1=0x7f0a0000;
     }
@@ -149,83 +148,84 @@ containing a value of this type.
     public static final class string {
         /**  Menu item text [CHAR LIMIT=NONE] 
          */
-        public static final int accounts=0x7f070000;
+        public static final int accounts=0x7f060000;
         /**  Dialog button [CHAR LIMIT=NONE] 
          */
-        public static final int add_account=0x7f070001;
+        public static final int add_account=0x7f060001;
         /**   Name of the application in the launcher [CHAR LIMIT=NONE] 
          */
-        public static final int app_name=0x7f070002;
+        public static final int app_name=0x7f060002;
         /**  Dialog title text [CHAR LIMIT=NONE] 
          */
-        public static final int attention=0x7f070003;
+        public static final int attention=0x7f060003;
         /**  Button text [CHAR LIMIT=NONE] 
          */
-        public static final int connect=0x7f070004;
+        public static final int connect=0x7f060004;
         /**  Message text for "Connect" screen [CHAR LIMIT=NONE] 
          */
-        public static final int connect_text=0x7f070005;
+        public static final int connect_text=0x7f060005;
         /**  Header text for "Connect" screen [CHAR LIMIT=NONE] 
          */
-        public static final int connect_to_the_cloud=0x7f070006;
+        public static final int connect_to_the_cloud=0x7f060006;
         /**  Header text for "Connected" screen [CHAR LIMIT=NONE] 
          */
-        public static final int connected_to_the_cloud=0x7f070007;
+        public static final int connected_to_the_cloud=0x7f060007;
         /**  Message text [CHAR LIMIT=NONE] 
          */
-        public static final int contacting_server=0x7f070008;
-        public static final int dateRange_prompt=0x7f07001a;
+        public static final int contacting_server=0x7f060008;
+        public static final int dateRange_prompt=0x7f06001b;
         /**  Button text [CHAR LIMIT=NONE] 
          */
-        public static final int disconnect=0x7f070009;
+        public static final int disconnect=0x7f060009;
         /**  Informational text for "Connected" screen with placeholder for account name [CHAR LIMIT=NONE] 
          */
-        public static final int disconnect_text=0x7f07000a;
+        public static final int disconnect_text=0x7f06000a;
         /**  Footer text for "Connect" screen [CHAR LIMIT=NONE] 
          */
-        public static final int do_you_want_to_connect=0x7f07000b;
+        public static final int do_you_want_to_connect=0x7f06000b;
         /**  Footer text for "Disconnect" screen [CHAR LIMIT=NONE] 
          */
-        public static final int do_you_want_to_disconnect=0x7f07000c;
+        public static final int do_you_want_to_disconnect=0x7f06000c;
+        public static final int eventType_prompt=0x7f060016;
         /**  Initial "hello, world" informational message [CHAR LIMIT=NONE] 
          */
-        public static final int hello_world_info_text=0x7f07000d;
+        public static final int hello_world_info_text=0x7f06000d;
         /**  Initial "hello, world" response message [CHAR LIMIT=NONE] 
          */
-        public static final int hello_world_text=0x7f07000e;
-        public static final int moduleType_prompt=0x7f070016;
-        public static final int moduleType_prompt_NoAll=0x7f070017;
-        public static final int module_event_OffOn=0x7f070018;
-        public static final int module_event_decade=0x7f070019;
+        public static final int hello_world_text=0x7f06000e;
+        public static final int moduleType_prompt=0x7f060017;
+        public static final int moduleType_prompt_NoAll=0x7f060018;
+        public static final int module_event_OffOn=0x7f060019;
+        public static final int module_event_decade=0x7f06001a;
         /**  Dialog message text [CHAR LIMIT=NONE] 
          */
-        public static final int needs_account=0x7f07000f;
+        public static final int needs_account=0x7f06000f;
         /**  Notification message [CHAR LIMIT=NONE] 
          */
-        public static final int registration_error=0x7f070010;
+        public static final int registration_error=0x7f060010;
         /**  Notification message [CHAR LIMIT=NONE] 
          */
-        public static final int registration_succeeded=0x7f070011;
+        public static final int registration_succeeded=0x7f060011;
         /**  Button text [CHAR LIMIT=NONE] 
          */
-        public static final int say_hello=0x7f070012;
+        public static final int say_hello=0x7f060012;
         /**  List view header text [CHAR LIMIT=NONE] 
          */
-        public static final int select_account=0x7f070013;
+        public static final int select_account=0x7f060013;
         /**  Dialog button text [CHAR LIMIT=NONE] 
          */
-        public static final int skip=0x7f070014;
+        public static final int skip=0x7f060014;
         /**  Notification message [CHAR LIMIT=NONE] 
          */
-        public static final int unregistration_succeeded=0x7f070015;
+        public static final int unregistration_succeeded=0x7f060015;
     }
     public static final class style {
-        public static final int ActionBar=0x7f080001;
-        public static final int ActionBarHomeItem=0x7f080003;
-        public static final int ActionBarHomeLogo=0x7f080004;
-        public static final int ActionBarItem=0x7f080002;
-        public static final int ActionBarProgressBar=0x7f080005;
-        public static final int ButtonText=0x7f080000;
+        public static final int ActionBar=0x7f070001;
+        public static final int ActionBarHomeItem=0x7f070003;
+        public static final int ActionBarHomeLogo=0x7f070004;
+        public static final int ActionBarItem=0x7f070002;
+        public static final int ActionBarProgressBar=0x7f070005;
+        public static final int ButtonText=0x7f070000;
     }
     public static final class styleable {
         /** Attributes that can be used with a ActionBar.

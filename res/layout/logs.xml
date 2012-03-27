@@ -7,31 +7,6 @@
         android:id="@+id/myHeader"
         layout="@layout/bar" />
 
-    <TextView
-        android:id="@+id/logMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@layout/bar"
-        android:layout_marginTop="80dp"
-        android:text="Event Logs Menu:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/dateRangeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/logMenu"
-        android:text="Date Range: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/dateRangeSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/logMenu"
-        android:layout_toRightOf="@+id/dateRangeLabel" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
@@ -59,42 +34,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dateRangeLabel"
         android:text=" "
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/dateRangeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="80dp"
+        android:text="Date Range  | "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/moduleTypeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/blankSpace"
-        android:text="Module Type: "
+        android:layout_alignBaseline="@+id/dateRangeLabel"
+        android:layout_alignBottom="@+id/dateRangeLabel"
+        android:layout_toRightOf="@+id/dateRangeLabel"
+        android:text=" Module Type | "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/moduleTypeLabel"
+        android:layout_alignBottom="@+id/moduleTypeLabel"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/moduleTypeLabel"
+        android:text="   Type"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Spinner
         android:id="@+id/moduleTypeSpinner"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/moduleTypeLabel"
-        android:layout_toRightOf="@+id/moduleTypeLabel" />
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout1"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/submitButton" >
+        android:layout_below="@+id/dateRangeLabel"
+        android:layout_toRightOf="@+id/dateRangeLabel" />
 
-    </ListView>
+    <Spinner
+        android:id="@+id/dateRangeSpinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/moduleTypeSpinner"
+        android:layout_alignBottom="@+id/moduleTypeSpinner"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/moduleTypeLabel"
-        android:text="Submit" />
+        android:layout_below="@+id/dateRangeSpinner"
+        android:layout_marginTop="2dp"
+        android:text="Search" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="222dp"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/submitButton"
+        android:layout_weight="0.47"
+        android:cacheColorHint="#333333"
+        android:textColor="#333333" >
+
+    </ListView>
+
+    <Spinner
+        android:id="@+id/typeSpinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitButton"
+        android:layout_toRightOf="@+id/moduleTypeLabel" />
 
 </RelativeLayout>

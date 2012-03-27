@@ -35,12 +35,12 @@ public class LogsActivity extends BarListActivity {
 	public static List<ModuleEvent> moduleEvents = new ArrayList<ModuleEvent>();
 	public static List<ModuleEvent> moduleEventsSuggested = new ArrayList<ModuleEvent>();
 	public static ArrayList<String> moduleEventsList = new ArrayList<String>();
+	public static List<ScheduleModuleEvent> scheduledModuleEvents = new ArrayList<ScheduleModuleEvent>();
 	private Button submitButton;
 	private Button suggestButton;
 	private Button profilesButton;
 	private ListView lv;
-	Spinner dateSpinner;
-	Spinner moduleSpinner;
+	Spinner dateSpinner, moduleSpinner, typeSpinner;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,9 +88,17 @@ public class LogsActivity extends BarListActivity {
 				suggestButton.setEnabled(false);
 				// clear previous request
 				moduleEvents.clear();
+				scheduledModuleEvents.clear();
 				// now get the new info
 				displayMessageList("Refreshing...");
-				getLogInfo(true, false);
+				// decide which methord to call logs or scheduled
+				String typeSpinnerValue = typeSpinner.getSelectedItem()
+						.toString();
+				if (typeSpinnerValue.equals("Log")) {
+					getLogInfo(true, false);
+				} else {
+					getScheduledInfo();
+				}
 			}
 		});
 	}
@@ -254,7 +262,7 @@ public class LogsActivity extends BarListActivity {
 		dateAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		dateSpinner.setAdapter(dateAdapter);
-		// now do the other spinner
+		// now do the module spinner
 		moduleSpinner = (Spinner) findViewById(R.id.moduleTypeSpinner);
 		ArrayAdapter<CharSequence> moduleAdapter = ArrayAdapter
 				.createFromResource(this, R.array.moduleType_array,
@@ -262,6 +270,14 @@ public class LogsActivity extends BarListActivity {
 		moduleAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		moduleSpinner.setAdapter(moduleAdapter);
+		// now do the type spinner
+		typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+		ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter
+				.createFromResource(this, R.array.eventType_array,
+						android.R.layout.simple_spinner_item);
+		typeAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		typeSpinner.setAdapter(typeAdapter);
 	}
 
 	private void displayMessageList(String message) {
@@ -398,6 +414,54 @@ public class LogsActivity extends BarListActivity {
 					// threshold
 					displaySuggestedProfiles();
 				}
+
+			}
+		}.execute();
+
+	}
+
+	protected void getScheduledInfo() {
+		new AsyncTask<Void, Void, List<ModuleEvent>>() {
+			@SuppressWarnings("unused")
+			String foundModuleEvents;
+
+			@Override
+			protected List<ModuleEvent> doInBackground(Void... arg0) {
+				ModulesRequestFactory requestFactory = Util.getRequestFactory(
+						mContext, ModulesRequestFactory.class);
+				final ModuleEventFetchRequest request = (ModuleEventFetchRequest) requestFactory
+						.moduleEventFetchRequest();
+				Log.i(TAG, "Sending request to server");
+				request.getModules().fire(
+						new Receiver<List<ModuleEventProxy>>() {
+							@Override
+							public void onFailure(ServerFailure error) {
+								// do nothing, no modules found
+								foundModuleEvents = "There was an error!";
+							}
+
+							@Override
+							public void onSuccess(List<ModuleEventProxy> arg0) {
+								foundModuleEvents = "The module events found were: ";
+								for (int i = 0; i < arg0.size(); i++) {
+									// create temporary module infro
+									// proxy, tmi
+									ModuleEventProxy tmi = arg0.get(i);
+									moduleEvents.add(new ModuleEvent(tmi
+											.getModuleName(), tmi
+											.getModuleType(), tmi.getUser(),
+											tmi.getAction(), tmi.getDate(), tmi
+													.getValue()));
+								}
+								if (moduleEvents.isEmpty())
+									foundModuleEvents = "No module events were found!";
+							}
+						});
+				return moduleEvents;
+			}
+
+			protected void onPostExecute(List<ModuleEvent> result) {
+				// if events found that match update the shown list
 
 			}
 		}.execute();

@@ -81,6 +81,12 @@
     <item name="android:shadowRadius">2</item>
 </style>
 
+        <string name="eventType_prompt">Choose a Event Type</string>
+    <string-array name="eventType_array">
+        <item>Log</item>
+        <item>Scheduled</item>
+    </string-array>
+    
     
     <string name="moduleType_prompt">Choose a Module Type</string>
     <string-array name="moduleType_array">
