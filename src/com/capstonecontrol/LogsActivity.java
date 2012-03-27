@@ -295,6 +295,26 @@ public class LogsActivity extends BarListActivity {
 		lv.setAdapter(arrayAdapter);
 	}
 
+	private void updateScheduledEventListView() {
+		// done search for re-enable the submit button
+		submitButton.setEnabled(true);
+		suggestButton.setEnabled(true);
+		String tempString;
+		// clear old list
+		moduleEventsList.clear();
+		for (int i = 0; i < scheduledModuleEvents.size(); i++) {
+			tempString = scheduledModuleEvents.get(i).getSchedDate();
+			tempString += "      " + scheduledModuleEvents.get(i).getModuleName();
+			tempString += "      " + scheduledModuleEvents.get(i).getModuleType();
+			tempString += "      " + scheduledModuleEvents.get(i).getValue();
+			boolean displayEvent = checkToAddEvent(scheduledModuleEvents.get(i)
+					.getDate(), moduleEvents.get(i).getModuleType());
+			if (displayEvent) {
+				moduleEventsList.add(tempString);
+			}
+		}
+	}
+
 	private void updateEventListView() {
 		// done search for re-enable the submit button
 		submitButton.setEnabled(true);
@@ -302,22 +322,13 @@ public class LogsActivity extends BarListActivity {
 		String tempString;
 		// clear old list
 		moduleEventsList.clear();
-		// This is the array adapter, it takes the context of the activity as a
-		// first
-		// parameter, the type of list view as a second parameter and your array
-		// as
-		// a third parameter
 		// create list of strings based on event info
 		for (int i = 0; i < moduleEvents.size(); i++) {
 			tempString = moduleEvents.get(i).getDate().toLocaleString();
 			tempString += "      " + moduleEvents.get(i).getModuleName();
 			tempString += "      " + moduleEvents.get(i).getModuleType();
 			tempString += "      " + moduleEvents.get(i).getValue();
-			boolean displayEvent = checkToAddEvent(moduleEvents.get(i)
-					.getDate(), moduleEvents.get(i).getModuleType());
-			if (displayEvent) {
-				moduleEventsList.add(tempString);
-			}
+			moduleEventsList.add(tempString);
 		}
 		ArrayAdapter<String> arrayAdapter2 =
 		// new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
@@ -432,7 +443,7 @@ public class LogsActivity extends BarListActivity {
 				ModulesRequestFactory requestFactory = Util.getRequestFactory(
 						mContext, ModulesRequestFactory.class);
 				final ScheduledModuleEventFetchRequest request = (ScheduledModuleEventFetchRequest) requestFactory
-						.moduleEventFetchRequest();
+						.scheduledModuleEventFetchRequest();
 				Log.i(TAG, "Sending request to server");
 				request.getModules().fire(
 						new Receiver<List<ScheduledModuleEventProxy>>() {
@@ -443,27 +454,46 @@ public class LogsActivity extends BarListActivity {
 							}
 
 							@Override
-							public void onSuccess(List<ScheduledModuleEventProxy> arg0) {
+							public void onSuccess(
+									List<ScheduledModuleEventProxy> arg0) {
 								foundModuleEvents = "The module events found were: ";
 								for (int i = 0; i < arg0.size(); i++) {
 									// create temporary module infro
 									// proxy, tmi
 									ScheduledModuleEventProxy tmi = arg0.get(i);
-									scheduledModuleEvents.add(new ScheduledModuleEvent(tmi
-											.getModuleName(), tmi
-											.getModuleType(), tmi.getUser(),
-											tmi.getAction(), tmi.getDate(), tmi
-													.getValue(), false, false, false, false, false, false, false, false, i, i, foundModuleEvents, i, i, false));
+									scheduledModuleEvents
+											.add(new ScheduledModuleEvent(tmi
+													.getModuleName(), tmi
+													.getModuleType(), tmi
+													.getUser(),
+													tmi.getAction(), tmi
+															.getDate(), tmi
+															.getValue(), tmi
+															.getMon(), tmi
+															.getTue(), tmi
+															.getWed(), tmi
+															.getThu(), tmi
+															.getFri(), tmi
+															.getSat(), tmi
+															.getSun(), tmi
+															.getActive(), tmi
+															.getHours(), tmi
+															.getMinutes(), tmi
+															.getSchedDate(),
+													tmi.getYear(),
+													tmi.getDay(), tmi
+															.getReoccurence()));
 								}
-								if (moduleEvents.isEmpty())
-									foundModuleEvents = "No module events were found!";
+								if (scheduledModuleEvents.isEmpty())
+									foundModuleEvents = "No scheduled module events were found!";
 							}
 						});
 				return scheduledModuleEvents;
 			}
 
-			protected void onPostExecute(List<ModuleEvent> result) {
+			protected void onPostExecute(List<ScheduledModuleEvent> result) {
 				// if events found that match update the shown list
+				updateScheduledEventListView();
 
 			}
 		}.execute();

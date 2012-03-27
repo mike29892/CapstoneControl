@@ -41,6 +41,22 @@ public class ScheduledModuleEvent {
 		this.schedDate = schedDate;
 	}
 
+	public int getDay(){
+		return day;
+	}
+	
+	public int getYear(){
+		return year;
+	}
+	
+	public boolean getReoccurence(){
+		return reoccurence;
+	}
+	
+	public String getSchedDate(){
+		return schedDate;
+	}
+	
 	public int getMinutes() {
 		return minutes;
 	}
