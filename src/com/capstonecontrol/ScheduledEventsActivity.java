@@ -17,7 +17,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,18 +31,22 @@ public class ScheduledEventsActivity extends BarActivity {
 
 	@SuppressWarnings("unused")
 	private Context mContext = this;
-	private Button moduleButton, timeButton, occuranceButton,
+	private Button moduleButton, timeButton, occurenceButton,
 			daysAndDateButton, valueButton, submitButton;
-	private int hour, minute, day, month, year, value, moduleInt;
+	private int hour, minute, day, month, year, value, moduleInt,
+			occurence = 0;
 	private final int TIME_DIALOG_ID = 0;
 	private final int DATE_DIALOG_ID = 1;
 	private final int VALUE_DIALOG_ID = 2;
 	private final int MODULE_DIALOG_ID = 3;
+	private final int OCCURENCE_DIALOG_ID = 4;
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 	private DatePickerDialog.OnDateSetListener mDateSetListener;
-	private NumberPicker.OnValueChangeListener mValueSetListener;
-	private NumberPicker.OnValueChangeListener mModuleSetListener;
-	private NumberPicker valuePicker, modulePicker;
+	private NumberPicker valuePicker, modulePicker, occurencePicker;
+	private LinearLayout dayPicker;
+	private CheckBox monCheckBox, tueCheckBox, wedCheckBox, thuCheckBox,
+			friCheckBox, satCheckBox, sunCheckBox;
+	boolean mon, tue, wed, thu, fri, sat, sun;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,8 @@ public class ScheduledEventsActivity extends BarActivity {
 		// @TODO REMOVE BELOW AND PUT AND POST STATEMENT IN ITS OWN THREAD
 		ThreadPolicy tp = ThreadPolicy.LAX;
 		StrictMode.setThreadPolicy(tp);
+		// create check boxes
+		createCheckBoxs();
 		// enable bar
 		enableBar();
 		// enable POST capabilities
@@ -55,7 +65,7 @@ public class ScheduledEventsActivity extends BarActivity {
 		// find the buttons
 		this.moduleButton = (Button) this.findViewById(R.id.moduleButton);
 		this.timeButton = (Button) this.findViewById(R.id.timeButton);
-		this.occuranceButton = (Button) this.findViewById(R.id.occuranceButton);
+		this.occurenceButton = (Button) this.findViewById(R.id.occurenceButton);
 		this.daysAndDateButton = (Button) this
 				.findViewById(R.id.daysAndDateButton);
 		this.valueButton = (Button) this.findViewById(R.id.valueButton);
@@ -74,6 +84,73 @@ public class ScheduledEventsActivity extends BarActivity {
 		setUpButtons();
 		// set up submit button
 		setUpSubmitButton();
+	}
+
+	private void createCheckBoxs() {
+		monCheckBox = new CheckBox(mContext);
+		monCheckBox.setText("Mon");
+		monCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				mon = isChecked;
+			}
+		});
+		tueCheckBox = new CheckBox(mContext);
+		tueCheckBox.setText("Tue");
+		tueCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				tue = isChecked;
+			}
+		});
+		wedCheckBox = new CheckBox(mContext);
+		wedCheckBox.setText("Wed");
+		wedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				wed = isChecked;
+			}
+		});
+		thuCheckBox = new CheckBox(mContext);
+		thuCheckBox.setText("Thu");
+		thuCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				thu = isChecked;
+			}
+		});
+		friCheckBox = new CheckBox(mContext);
+		friCheckBox.setText("Fri");
+		friCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				fri = isChecked;
+			}
+		});
+		satCheckBox = new CheckBox(mContext);
+		satCheckBox.setText("Sat");
+		satCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				sat = isChecked;
+			}
+		});
+		sunCheckBox = new CheckBox(mContext);
+		sunCheckBox.setText("Sun");
+		sunCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				sun = isChecked;
+			}
+		});
+
 	}
 
 	private void setUpButtons() {
@@ -117,16 +194,6 @@ public class ScheduledEventsActivity extends BarActivity {
 				showDialog(VALUE_DIALOG_ID);
 			}
 		});
-		// the callback received when the user "sets" the time in the dialog
-		mValueSetListener = new NumberPicker.OnValueChangeListener() {
-
-			@Override
-			public void onValueChange(NumberPicker picker, int oldVal,
-					int newVal) {
-				value = newVal;
-				updateValueDisplay();
-			}
-		};
 
 		// code for the module button
 		moduleButton.setOnClickListener(new View.OnClickListener() {
@@ -134,16 +201,14 @@ public class ScheduledEventsActivity extends BarActivity {
 				showDialog(MODULE_DIALOG_ID);
 			}
 		});
-		// the callback received when the user "sets" the time in the dialog
-		mModuleSetListener = new NumberPicker.OnValueChangeListener() {
 
-			@Override
-			public void onValueChange(NumberPicker picker, int oldVal,
-					int newVal) {
-				moduleInt = newVal;
-				updateModuleDisplay();
+		// code for the occurrence button
+		occurenceButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				showDialog(OCCURENCE_DIALOG_ID);
 			}
-		};
+		});
+
 	}
 
 	// updates the time we display in the TextView
@@ -160,13 +225,45 @@ public class ScheduledEventsActivity extends BarActivity {
 	}
 
 	private void updateValueDisplay() {
-		daysAndDateButton
-				.setText("Value: " + new StringBuilder().append(value));
+		valueButton.setText("Value: " + value);
 	}
-	
+
+	private void updateDayDisplay() {
+		String days = "";
+		if (mon)
+			days += "Mon, ";
+		if (tue)
+			days += "Tue, ";
+		if (wed)
+			days += "Wed, ";
+		if (thu)
+			days += "Thu, ";
+		if (fri)
+			days += "Fri, ";
+		if (sat)
+			days += "Sat, ";
+		if (sun)
+			days += "Sun, ";
+		if (days.length() > 1) {
+			// remove the last comma
+			days = days.substring(0, days.length() - 2);
+		}
+		daysAndDateButton.setText("Date/Days: " + days);
+
+	}
+
+	private void updateOccurenceDisplay() {
+		if (occurence == 0) { // 0 = onetime 1 = weekly
+			occurenceButton.setText("Occurence: One-time");
+		} else {
+			occurenceButton.setText("Occurence: Weekly");
+		}
+	}
+
 	private void updateModuleDisplay() {
-		daysAndDateButton
-				.setText("Module: " + new StringBuilder().append(CapstoneControlActivity.modules.get(moduleInt).getModuleName()));
+		moduleButton.setText("Module: "
+				+ CapstoneControlActivity.modules.get(moduleInt)
+						.getModuleName());
 	}
 
 	private static String pad(int c) {
@@ -181,16 +278,52 @@ public class ScheduledEventsActivity extends BarActivity {
 
 	}
 
+	private void updateDateChoices() {
+		removeDialog(DATE_DIALOG_ID);
+		if (occurence == 0) { // use date choose
+			updateDateDisplay();
+		} else {// assume occurence == 1, so use day chooser
+			daysAndDateButton.setText("Date/Days: Choose Days");
+		}
+	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case TIME_DIALOG_ID:
 			return new TimePickerDialog(this, mTimeSetListener, hour, minute,
 					false);
-
 		case DATE_DIALOG_ID:
-			return new DatePickerDialog(this, mDateSetListener, year, month,
-					day);
+
+			// need to adjust date selections based on the occurrence selection
+			if (occurence == 1) { // 0 means weekly
+				dayPicker = new LinearLayout(mContext);
+				dayPicker.setOrientation(1); // sets it to be vertical
+				dayPicker.addView(monCheckBox);
+				dayPicker.addView(tueCheckBox);
+				dayPicker.addView(wedCheckBox);
+				dayPicker.addView(thuCheckBox);
+				dayPicker.addView(friCheckBox);
+				dayPicker.addView(satCheckBox);
+				dayPicker.addView(sunCheckBox);
+				return new AlertDialog.Builder(this)
+						.setTitle("Select value to send:")
+						.setView(dayPicker)
+						// .setMessage("")
+						.setPositiveButton("Ok",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// do nothing, returns to the main menu
+										updateDayDisplay();
+									}
+								}).show();
+			} else { // assume 0 so its one time
+
+				return new DatePickerDialog(this, mDateSetListener, year,
+						month, day);
+			}
+
 		case VALUE_DIALOG_ID:
 			valuePicker = new NumberPicker(mContext);
 			valuePicker.setMaxValue(100);
@@ -204,27 +337,25 @@ public class ScheduledEventsActivity extends BarActivity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// do nothing, returns to the main menu
+									value = valuePicker.getValue();
+									updateValueDisplay();
 								}
-							})
-					/*
-					 * .setPositiveButton("Yes", new
-					 * DialogInterface.OnClickListener() { public void
-					 * onClick(DialogInterface dialog, int which) { // continue
-					 * with delete } }) .setNegativeButton("No", new
-					 * DialogInterface.OnClickListener() { public void
-					 * onClick(DialogInterface dialog, int which) { // do
-					 * nothing } })
-					 */
-					.show();
+							}).show();
 		case MODULE_DIALOG_ID:
-			//create array of module names
-			String[] moduleNames= new String[CapstoneControlActivity.modules.size()];
-			for (int i=0; i< CapstoneControlActivity.modules.size();i++){
-				moduleNames[i] = CapstoneControlActivity.modules.get(i).getModuleName();
+			// create array of module names
+			String[] moduleNames = new String[CapstoneControlActivity.modules
+					.size()];
+			for (int i = 0; i < CapstoneControlActivity.modules.size(); i++) {
+				moduleNames[i] = CapstoneControlActivity.modules.get(i)
+						.getModuleName();
 			}
 			modulePicker = new NumberPicker(mContext);
-			valuePicker.setMaxValue(moduleNames.length);
+			modulePicker.setMaxValue(moduleNames.length - 1);
 			modulePicker.setMinValue(0);
+			modulePicker.setDisplayedValues(moduleNames);
+			// disable software keyboard input
+			modulePicker
+					.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 			return new AlertDialog.Builder(this)
 					.setTitle("Select Module:")
 					.setView(modulePicker)
@@ -234,56 +365,34 @@ public class ScheduledEventsActivity extends BarActivity {
 								public void onClick(DialogInterface dialog,
 										int which) {
 									// do nothing, returns to the main menu
+									moduleInt = modulePicker.getValue();
+									updateModuleDisplay();
 								}
-							})
-					/*
-					 * .setPositiveButton("Yes", new
-					 * DialogInterface.OnClickListener() { public void
-					 * onClick(DialogInterface dialog, int which) { // continue
-					 * with delete } }) .setNegativeButton("No", new
-					 * DialogInterface.OnClickListener() { public void
-					 * onClick(DialogInterface dialog, int which) { // do
-					 * nothing } })
-					 */
-					.show();
+							}).show();
+		case OCCURENCE_DIALOG_ID:
+			occurencePicker = new NumberPicker(mContext);
+			// disable software keyboard input
+			occurencePicker
+					.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+			occurencePicker.setMaxValue(1);
+			occurencePicker.setMinValue(0);
+			String[] occurenceChoices = { "One Time", "Weekly" };
+			occurencePicker.setDisplayedValues(occurenceChoices);
+			return new AlertDialog.Builder(this)
+					.setTitle("Select occurance:")
+					.setView(occurencePicker)
+					// .setMessage("")
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// do nothing, returns to the main menu
+									occurence = occurencePicker.getValue();
+									updateOccurenceDisplay();
+									updateDateChoices();
+								}
+							}).show();
 		}
 		return null;
 	}
-
-	/*
-	 * private void setUpSpinners() { valueSpinner = (Spinner)
-	 * findViewById(R.id.valueSpinner); final ArrayAdapter<CharSequence>
-	 * valueAdapter = ArrayAdapter .createFromResource(this,
-	 * R.array.module_event_array_OffOn, android.R.layout.simple_spinner_item);
-	 * valueAdapter
-	 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	 * valueSpinner.setAdapter(valueAdapter); // now do the other spinner
-	 * moduleSpinner = (Spinner) findViewById(R.id.moduleTypeSpinner);
-	 * ArrayAdapter<CharSequence> moduleAdapter = ArrayAdapter
-	 * .createFromResource(this, R.array.moduleType_array_NoAll,
-	 * android.R.layout.simple_spinner_item); moduleAdapter
-	 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	 * moduleSpinner.setAdapter(moduleAdapter);
-	 * 
-	 * // event for value spinner change based on module Type selected
-	 * moduleSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-	 * 
-	 * @Override public void onItemSelected(AdapterView<?> arg0, View arg1, int
-	 * arg2, long arg3) { //arg 2 is the number of item selected starting with 0
-	 * if (arg2 == 0){ //then door buzzer selected
-	 * 
-	 * } if (arg2 == 1){ //then lights selected
-	 * 
-	 * }
-	 * 
-	 * }
-	 * 
-	 * @Override public void onNothingSelected(AdapterView<?> arg0) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * } });
-	 * 
-	 * }
-	 */
-
 }

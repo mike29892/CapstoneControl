@@ -23,31 +23,31 @@
         android:text="Schedule Event" />
 
     <Button
-        android:id="@+id/timeButton"
+        android:id="@+id/occurenceButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/moduleButton"
         android:background="@drawable/mybutton"
-        android:text="Time: Please Select" />
+        android:text="Occurance: Once" />
 
     <Button
-        android:id="@+id/occuranceButton"
+        android:id="@+id/timeButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/timeButton"
+        android:layout_below="@+id/occurenceButton"
         android:background="@drawable/mybutton"
-        android:text="Occurance: Once" />
+        android:text="Time: " />
 
     <Button
         android:id="@+id/daysAndDateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/occuranceButton"
+        android:layout_below="@+id/timeButton"
         android:background="@drawable/mybutton"
-        android:text="Date/Days: Please Select" />
+        android:text="Date/Days: " />
 
     <Button
         android:id="@+id/valueButton"
@@ -56,6 +56,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/daysAndDateButton"
         android:background="@drawable/mybutton"
-        android:text="Value: Please Select" />
+        android:text="Values: Please Select " />
 
 </RelativeLayout>

@@ -106,7 +106,7 @@ containing a value of this type.
         public static final int mqttChannel=0x7f0a0013;
         public static final int mqttValue=0x7f0a0014;
         public static final int myHeader=0x7f0a0010;
-        public static final int occuranceButton=0x7f0a0031;
+        public static final int occurenceButton=0x7f0a0030;
         public static final int openDoorButton=0x7f0a0018;
         public static final int refreshModulesButton=0x7f0a003a;
         public static final int say_hello=0x7f0a001a;
@@ -120,7 +120,7 @@ containing a value of this type.
         public static final int suggestProfile=0x7f0a0022;
         public static final int textView1=0x7f0a0015;
         public static final int textView2=0x7f0a0016;
-        public static final int timeButton=0x7f0a0030;
+        public static final int timeButton=0x7f0a0031;
         public static final int valueButton=0x7f0a0033;
         public static final int view1=0x7f0a0000;
     }

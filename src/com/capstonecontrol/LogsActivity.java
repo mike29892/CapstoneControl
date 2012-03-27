@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.lang.Math;
 
 import com.capstonecontrol.client.ModulesRequestFactory;
@@ -128,9 +129,10 @@ public class LogsActivity extends BarListActivity {
 				tempString = Integer.toString(hour) + ":";
 			}
 			if (minute < 10) {
-				tempString += "0" + Integer.toString(minute) + " GMT";
+				tempString += "0" + Integer.toString(minute);
 			} else {
-				tempString += Integer.toString(minute) + " GMT";
+				Calendar cal = Calendar.getInstance();
+				tempString += Integer.toString(minute);
 			}
 			tempString += "      "
 					+ moduleEventsSuggested.get(i).getModuleName();
@@ -289,7 +291,7 @@ public class LogsActivity extends BarListActivity {
 		// a third parameter
 		// create list of strings based on event info
 		for (int i = 0; i < moduleEvents.size(); i++) {
-			tempString = moduleEvents.get(i).getDate().toGMTString();
+			tempString = moduleEvents.get(i).getDate().toLocaleString();
 			tempString += "      " + moduleEvents.get(i).getModuleName();
 			tempString += "      " + moduleEvents.get(i).getModuleType();
 			tempString += "      " + moduleEvents.get(i).getValue();
