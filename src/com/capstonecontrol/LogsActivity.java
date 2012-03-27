@@ -35,7 +35,7 @@ public class LogsActivity extends BarListActivity {
 	public static List<ModuleEvent> moduleEvents = new ArrayList<ModuleEvent>();
 	public static List<ModuleEvent> moduleEventsSuggested = new ArrayList<ModuleEvent>();
 	public static ArrayList<String> moduleEventsList = new ArrayList<String>();
-	public static List<ScheduleModuleEvent> scheduledModuleEvents = new ArrayList<ScheduleModuleEvent>();
+	public static List<ScheduledModuleEvent> scheduledModuleEvents = new ArrayList<ScheduledModuleEvent>();
 	private Button submitButton;
 	private Button suggestButton;
 	private Button profilesButton;
