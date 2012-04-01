@@ -116,7 +116,7 @@ public class PowerManagementActivity extends BarListActivity {
 							}
 
 							@Override
-							public void onSuccess(List<PowerDataProxy> arg0) {
+						 	public void onSuccess(List<PowerDataProxy> arg0) {
 								foundModuleEvents = "The module events found were: ";
 								for (int i = 0; i < arg0.size(); i++) {
 									// create temporary module infro
@@ -133,7 +133,7 @@ public class PowerManagementActivity extends BarListActivity {
 				return powerDataArray;
 			}
 
-			protected void onPostExecute(List<ModuleEvent> result) {
+			protected void onPostExecute(List<PowerData> result) {
 			}
 
 		}.execute();

@@ -286,11 +286,8 @@ public class LogsActivity extends BarListActivity {
 		moduleEventsList.add(message);
 		// create list
 		lv = getListView();
-		ArrayAdapter<String> arrayAdapter =
-		// new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
-		// BarActivity.alertsList);
-		new ArrayAdapter<String>(this, R.layout.list_text_style2,
-				moduleEventsList);
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				R.layout.list_text_style2, moduleEventsList);
 		lv.setAdapter(arrayAdapter);
 	}
 
@@ -306,9 +303,6 @@ public class LogsActivity extends BarListActivity {
 					.toLocaleString();
 			tempString += "      "
 					+ scheduledModuleEvents.get(i).getModuleName();
-			tempString += "      "
-					+ scheduledModuleEvents.get(i).getModuleType();
-			tempString += "      " + scheduledModuleEvents.get(i).getValue();
 			// boolean displayEvent =
 			// checkToAddEvent(scheduledModuleEvents.get(i)
 			// .getDate(), scheduledModuleEvents.get(i).getModuleType());
@@ -316,6 +310,9 @@ public class LogsActivity extends BarListActivity {
 			moduleEventsList.add(tempString);
 			// }
 		}
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+				R.layout.list_text_style2, moduleEventsList);
+		lv.setAdapter(arrayAdapter);
 	}
 
 	private void updateEventListView() {
@@ -471,27 +468,21 @@ public class LogsActivity extends BarListActivity {
 									scheduledModuleEvents
 											.add(new ScheduledModuleEvent(tmi
 													.getModuleName(), tmi
-													.getModuleType(), tmi
-													.getUser(),
-													tmi.getAction(), tmi
-															.getDate(), tmi
-															.getValue(), tmi
-															.getMon(), tmi
-															.getTue(), tmi
-															.getWed(), tmi
-															.getThu(), tmi
-															.getFri(), tmi
-															.getSat(), tmi
-															.getSun(), tmi
+													.getDate(), tmi
+													.getSchedDate(), tmi
+													.getMon(), tmi.getTue(),
+													tmi.getWed(), tmi.getThu(),
+													tmi.getFri(), tmi.getSat(),
+													tmi.getSun(), tmi
 															.getActive(), tmi
-															.getHours(), tmi
-															.getMinutes(), tmi
-															.getSchedDate(),
-													tmi.getYear(),
-													tmi.getDay(), tmi
-															.getReoccurence(),
-													tmi.getMonth(), tmi
-															.getTimeOffset()));
+															.getRecur(), tmi
+															.getMinute(), tmi
+															.getHour(), tmi
+															.getDay(), tmi
+															.getMonth(), tmi
+															.getYear(), tmi
+															.getTimeOffset(),
+													tmi.getValue()));
 								}
 								if (scheduledModuleEvents.isEmpty())
 									foundModuleEvents = "No scheduled module events were found!";
@@ -508,5 +499,4 @@ public class LogsActivity extends BarListActivity {
 		}.execute();
 
 	}
-
 }
