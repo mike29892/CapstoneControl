@@ -290,6 +290,11 @@ public class LogsActivity extends BarListActivity {
 				R.layout.list_text_style2, moduleEventsList);
 		lv.setAdapter(arrayAdapter);
 	}
+	
+	public String padMinutesToString(Long minutes){
+		if (minutes <10) return "0" + minutes;
+		else return Long.toString(minutes);
+	}
 
 	private void updateScheduledEventListView() {
 		// done search for re-enable the submit button
@@ -299,10 +304,27 @@ public class LogsActivity extends BarListActivity {
 		// clear old list
 		moduleEventsList.clear();
 		for (int i = 0; i < scheduledModuleEvents.size(); i++) {
-			tempString = scheduledModuleEvents.get(i).getSchedDate()
-					.toLocaleString();
-			tempString += "      "
-					+ scheduledModuleEvents.get(i).getModuleName();
+			tempString = "";
+			ScheduledModuleEvent mySchedEvent = scheduledModuleEvents.get(i);
+			if (scheduledModuleEvents.get(i).getRecur()){
+				//means reoccuring
+				if (mySchedEvent.getMon()) tempString += "Mon ";
+				if (mySchedEvent.getTue()) tempString += "Tue ";
+				if (mySchedEvent.getWed()) tempString += "Wed ";
+				if (mySchedEvent.getThu()) tempString += "Thu ";
+				if (mySchedEvent.getFri()) tempString += "Fri ";
+				if (mySchedEvent.getSat()) tempString += "Sat ";
+				if (mySchedEvent.getSun()) tempString += "Sun ";
+				tempString += "  " + mySchedEvent.getHour() + ":" + padMinutesToString(mySchedEvent.getMinute());
+			}
+			else{
+				//means its a once time
+				tempString += mySchedEvent.getSchedDate();
+				tempString += "  ";
+			}
+			tempString += "  "
+					+ mySchedEvent.getModuleName();
+			tempString += "  " + mySchedEvent.getValue();
 			// boolean displayEvent =
 			// checkToAddEvent(scheduledModuleEvents.get(i)
 			// .getDate(), scheduledModuleEvents.get(i).getModuleType());
@@ -467,7 +489,7 @@ public class LogsActivity extends BarListActivity {
 									ScheduledModuleEventProxy tmi = arg0.get(i);
 									scheduledModuleEvents
 											.add(new ScheduledModuleEvent(tmi
-													.getModuleName(), tmi
+													.getModuleName(), tmi.getModuleType(),tmi
 													.getDate(), tmi
 													.getSchedDate(), tmi
 													.getMon(), tmi.getTue(),
@@ -482,7 +504,7 @@ public class LogsActivity extends BarListActivity {
 															.getMonth(), tmi
 															.getYear(), tmi
 															.getTimeOffset(),
-													tmi.getValue()));
+													tmi.getValue(), tmi.getAction()));
 								}
 								if (scheduledModuleEvents.isEmpty())
 									foundModuleEvents = "No scheduled module events were found!";

@@ -3,18 +3,19 @@ package com.capstonecontrol;
 import java.util.Date;
 
 public class ScheduledModuleEvent {
-	String moduleName;
+	String moduleName, moduleType, action;
 	Date date;
 	Date schedDate;
 	Boolean mon, tue, wed, thu, fri, sat, sun, active, recur;
 	Long minute, hour, day, month, year, timeOffset, value;
 
-	public ScheduledModuleEvent(String moduleName, Date date, Date schedDate,
+	public ScheduledModuleEvent(String moduleName, String moduleType, Date date, Date schedDate,
 			Boolean mon, Boolean tue, Boolean wed, Boolean thu, Boolean fri,
 			Boolean sat, Boolean sun, Boolean active, Boolean recur,
 			Long minute, Long hour, Long day, Long month, Long year,
-			Long timeOffset, Long value) {
+			Long timeOffset, Long value, String action) {
 		this.moduleName = moduleName;
+		this.moduleType = moduleType;
 		this.date = date;
 		this.schedDate = schedDate;
 		this.mon = mon;
@@ -33,12 +34,21 @@ public class ScheduledModuleEvent {
 		this.year = year;
 		this.timeOffset = timeOffset;
 		this.value = value;
+		this.action = action;
 	}
 
 	public String getModuleName() {
 		return moduleName;
 	}
 
+	public String getModuleType() {
+		return moduleType;
+	}
+	
+	public String getAction(){
+		return action;
+	}
+	
 	public Date getDate() {
 		return date;
 	}

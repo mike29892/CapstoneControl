@@ -1,25 +1,14 @@
 package com.capstonecontrol;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-import java.lang.Math;
-
 import com.capstonecontrol.client.ModulesRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.PowerDataFetchService;
-import com.capstonecontrol.client.MyRequestFactory;
-import com.capstonecontrol.client.ModulesRequestFactory.ModuleEventFetchRequest;
-import com.capstonecontrol.client.ModulesRequestFactory.ScheduledModuleEventFetchRequest;
-import com.capstonecontrol.shared.ModuleEventProxy;
 import com.capstonecontrol.shared.PowerDataProxy;
-import com.capstonecontrol.shared.ScheduledModuleEventProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -42,8 +31,6 @@ public class PowerManagementActivity extends BarListActivity {
 	public static ArrayList<String> moduleEventsList = new ArrayList<String>();
 	public static List<ScheduledModuleEvent> scheduledModuleEvents = new ArrayList<ScheduledModuleEvent>();
 	private Button submitButton;
-	private Button suggestButton;
-	private Button profilesButton;
 	private ListView lv;
 	Spinner dateSpinner, moduleSpinner, typeSpinner;
 
