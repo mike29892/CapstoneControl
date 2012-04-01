@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.lang.Math;
 
 import com.capstonecontrol.client.ModulesRequestFactory;
-import com.capstonecontrol.client.MyRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.ModuleEventFetchRequest;
 import com.capstonecontrol.client.ModulesRequestFactory.ScheduledModuleEventFetchRequest;
 import com.capstonecontrol.shared.ModuleEventProxy;

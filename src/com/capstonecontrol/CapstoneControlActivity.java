@@ -344,7 +344,10 @@ public class CapstoneControlActivity extends BarActivity {
 		this.appliancesButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				featureNotEnabledMsg();
+				//featureNotEnabledMsg();
+				Intent myIntent = new Intent(view.getContext(),
+						PowerManagementActivity.class);
+				startActivity(myIntent);
 			}
 		});
 		// settings button

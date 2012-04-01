@@ -72,6 +72,7 @@
 		<activity android:name=".SplashActivity"></activity>
 		<activity android:name=".LogsActivity"></activity>
 		<activity android:name=".ScheduledEventsActivity"></activity>
+		<activity android:name=".PowerManagementActivity"></activity>
         
     </application>
 </manifest>
