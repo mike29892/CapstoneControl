@@ -201,7 +201,6 @@ public class CapstoneControlActivity extends BarActivity {
 									foundModules = "No modules were found!";
 							}
 						});
-				dialog.dismiss();
 				return CapstoneControlActivity.modules;
 			}
 
@@ -218,16 +217,11 @@ public class CapstoneControlActivity extends BarActivity {
 						}
 					}
 				}
-
 				foundModules += ".";
-				dialog.dismiss();
-			}
-			
-			@Override
-			protected void onCancelled(){
-				dialog.dismiss();
 			}
 		}.execute();
+		dialog.cancel();
+		dialog.dismiss();
 	}
 
 	/**

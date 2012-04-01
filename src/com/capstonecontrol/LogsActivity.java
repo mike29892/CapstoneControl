@@ -8,6 +8,7 @@ import java.util.TimeZone;
 import java.lang.Math;
 
 import com.capstonecontrol.client.ModulesRequestFactory;
+import com.capstonecontrol.client.MyRequestFactory;
 import com.capstonecontrol.client.ModulesRequestFactory.ModuleEventFetchRequest;
 import com.capstonecontrol.client.ModulesRequestFactory.ScheduledModuleEventFetchRequest;
 import com.capstonecontrol.shared.ModuleEventProxy;
@@ -303,15 +304,19 @@ public class LogsActivity extends BarListActivity {
 		// clear old list
 		moduleEventsList.clear();
 		for (int i = 0; i < scheduledModuleEvents.size(); i++) {
-			tempString = scheduledModuleEvents.get(i).getSchedDate().toLocaleString();
-			tempString += "      " + scheduledModuleEvents.get(i).getModuleName();
-			tempString += "      " + scheduledModuleEvents.get(i).getModuleType();
+			tempString = scheduledModuleEvents.get(i).getSchedDate()
+					.toLocaleString();
+			tempString += "      "
+					+ scheduledModuleEvents.get(i).getModuleName();
+			tempString += "      "
+					+ scheduledModuleEvents.get(i).getModuleType();
 			tempString += "      " + scheduledModuleEvents.get(i).getValue();
-			boolean displayEvent = checkToAddEvent(scheduledModuleEvents.get(i)
-					.getDate(), moduleEvents.get(i).getModuleType());
-			if (displayEvent) {
-				moduleEventsList.add(tempString);
-			}
+			// boolean displayEvent =
+			// checkToAddEvent(scheduledModuleEvents.get(i)
+			// .getDate(), scheduledModuleEvents.get(i).getModuleType());
+			// if (displayEvent) {
+			moduleEventsList.add(tempString);
+			// }
 		}
 	}
 
@@ -328,7 +333,11 @@ public class LogsActivity extends BarListActivity {
 			tempString += "      " + moduleEvents.get(i).getModuleName();
 			tempString += "      " + moduleEvents.get(i).getModuleType();
 			tempString += "      " + moduleEvents.get(i).getValue();
-			moduleEventsList.add(tempString);
+			boolean displayEvent = checkToAddEvent(moduleEvents.get(i)
+					.getDate(), moduleEvents.get(i).getModuleType());
+			if (displayEvent) {
+				moduleEventsList.add(tempString);
+			}
 		}
 		ArrayAdapter<String> arrayAdapter2 =
 		// new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,
@@ -385,7 +394,7 @@ public class LogsActivity extends BarListActivity {
 				final ModuleEventFetchRequest request = (ModuleEventFetchRequest) requestFactory
 						.moduleEventFetchRequest();
 				Log.i(TAG, "Sending request to server");
-				request.getModules().fire(
+				request.getModuleEvents().fire(
 						new Receiver<List<ModuleEventProxy>>() {
 							@Override
 							public void onFailure(ServerFailure error) {
@@ -445,7 +454,7 @@ public class LogsActivity extends BarListActivity {
 				final ScheduledModuleEventFetchRequest request = (ScheduledModuleEventFetchRequest) requestFactory
 						.scheduledModuleEventFetchRequest();
 				Log.i(TAG, "Sending request to server");
-				request.getModules().fire(
+				request.getScheduledEvents().fire(
 						new Receiver<List<ScheduledModuleEventProxy>>() {
 							@Override
 							public void onFailure(ServerFailure error) {
@@ -482,7 +491,9 @@ public class LogsActivity extends BarListActivity {
 															.getSchedDate(),
 													tmi.getYear(),
 													tmi.getDay(), tmi
-															.getReoccurence()));
+															.getReoccurence(),
+													tmi.getMonth(), tmi
+															.getTimeOffset()));
 								}
 								if (scheduledModuleEvents.isEmpty())
 									foundModuleEvents = "No scheduled module events were found!";

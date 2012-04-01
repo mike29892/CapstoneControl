@@ -4,21 +4,21 @@ import java.util.Date;
 
 public class ScheduledModuleEvent {
 	String moduleName;
-	String value;
+	Long value;
 	String moduleType;
 	String user;
 	Date date;
 	Date schedDate;
 	String action;
-	int hours, minutes, day, month, year;
+	Long hours, minutes, day, month, year, timeOffset;
 	boolean active, reoccurence;
 	boolean Sun, Mon, Tue, Wed, Thu, Fri, Sat;
 
 	public ScheduledModuleEvent(String moduleName, String moduleType,
-			String user, String action, Date date, String value, boolean mon,
+			String user, String action, Date date, Long value, boolean mon,
 			boolean tue, boolean wed, boolean thu, boolean fri, boolean sat,
-			boolean sun, boolean active, int hours, int minutes,
-			Date schedDate, int year, int day, boolean reoccurence) {
+			boolean sun, boolean active, Long hours, Long minutes,
+			Date schedDate, Long year, Long day, boolean reoccurence, Long month, Long timeOffset) {
 		this.moduleName = moduleName;
 		this.moduleType = moduleType;
 		this.user = user;
@@ -39,13 +39,15 @@ public class ScheduledModuleEvent {
 		this.day = day;
 		this.year = year;
 		this.schedDate = schedDate;
+		this.month = month;
+		this.timeOffset = timeOffset;
 	}
 
-	public int getDay(){
+	public Long getDay(){
 		return day;
 	}
 	
-	public int getYear(){
+	public Long getYear(){
 		return year;
 	}
 	
@@ -57,19 +59,19 @@ public class ScheduledModuleEvent {
 		return schedDate;
 	}
 	
-	public int getMinutes() {
+	public Long getMinutes() {
 		return minutes;
 	}
 
-	public int getHours() {
+	public Long getHours() {
 		return hours;
 	}
 
-	public void setMinutes(int minutes) {
+	public void setMinutes(Long minutes) {
 		this.minutes = minutes;
 	}
 
-	public void setHours(int hours) {
+	public void setHours(Long hours) {
 		this.hours = hours;
 	}
 
@@ -157,12 +159,20 @@ public class ScheduledModuleEvent {
 		return action;
 	}
 
-	public String getValue() {
+	public Long getValue() {
 		return value;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public Long getMonth(){
+		return month;
+	}
+	
+	public Long getTimeOffset(){
+		return timeOffset;
 	}
 
 	// @TODO figure out why this is needed and how its used
