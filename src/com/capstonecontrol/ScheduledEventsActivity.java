@@ -1,10 +1,12 @@
 package com.capstonecontrol;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,9 +15,6 @@ import android.os.StrictMode;
 import android.os.StrictMode.ThreadPolicy;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,18 +22,17 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class ScheduledEventsActivity extends BarActivity {
 
-	@SuppressWarnings("unused")
 	private Context mContext = this;
 	private Button moduleButton, timeButton, occurenceButton,
 			daysAndDateButton, valueButton, submitButton;
-	private int hour, minute, day, month, year, value, moduleInt,
-			occurence = 0;
+	private Integer hour, minute, day, month, year, value, moduleInt=0,
+			occurence = 0, // 0 = onetime 1 = weekly
+			timeOffset=4;
+	private Date date, schedDate;
 	private final int TIME_DIALOG_ID = 0;
 	private final int DATE_DIALOG_ID = 1;
 	private final int VALUE_DIALOG_ID = 2;
@@ -46,7 +44,10 @@ public class ScheduledEventsActivity extends BarActivity {
 	private LinearLayout dayPicker;
 	private CheckBox monCheckBox, tueCheckBox, wedCheckBox, thuCheckBox,
 			friCheckBox, satCheckBox, sunCheckBox;
-	boolean mon, tue, wed, thu, fri, sat, sun;
+	boolean mon = false, tue = false, wed = false, thu = false, fri = false,
+			sat = false, sun = false, active = true, recur = false;
+	String moduleName, moduleType, action;
+	Calendar c;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,21 +70,36 @@ public class ScheduledEventsActivity extends BarActivity {
 		this.daysAndDateButton = (Button) this
 				.findViewById(R.id.daysAndDateButton);
 		this.valueButton = (Button) this.findViewById(R.id.valueButton);
-
+		this.submitButton = (Button) this.findViewById(R.id.submitButton);
 		// get the current time
-		final Calendar c = Calendar.getInstance();
+		c = Calendar.getInstance();
 		hour = c.get(Calendar.HOUR_OF_DAY);
 		minute = c.get(Calendar.MINUTE);
 		day = c.get(Calendar.DAY_OF_MONTH);
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
+		//set up default first values
+		setDefaultValues();
 		// display the current date
 		updateTimeDisplay();
 		updateDateDisplay();
+		updateValueDisplay();
+		updateModuleDisplay();
 		// set up settings buttons
 		setUpButtons();
 		// set up submit button
 		setUpSubmitButton();
+	}
+	
+	private void setDefaultValues(){
+		//hour, minute, day, month and year already set
+		value = 0;
+		schedDate = c.getTime();
+		moduleName = CapstoneControlActivity.modules.get(moduleInt).getModuleName();
+		moduleType = CapstoneControlActivity.modules.get(moduleInt).getModuleType();
+		if (moduleType.equals("Dimmer")) action = "Dim";
+		if (moduleType.equals("Buzzer")) action = "Open";
+		
 	}
 
 	private void createCheckBoxs() {
@@ -249,6 +265,7 @@ public class ScheduledEventsActivity extends BarActivity {
 			days = days.substring(0, days.length() - 2);
 		}
 		daysAndDateButton.setText("Date/Days: " + days);
+		if (days.equals("")) daysAndDateButton.setText("Date/Days: Choose Days");
 
 	}
 
@@ -273,9 +290,60 @@ public class ScheduledEventsActivity extends BarActivity {
 			return "0" + String.valueOf(c);
 	}
 
+	public void noDaySelectionMsg() {
+		new AlertDialog.Builder(this).setTitle("Please select atleast one day.")
+		// .setMessage("")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing, returns to the main menu
+					}
+				})
+				/*
+				 * .setPositiveButton("Yes", new
+				 * DialogInterface.OnClickListener() { public void
+				 * onClick(DialogInterface dialog, int which) { // continue with
+				 * delete } }) .setNegativeButton("No", new
+				 * DialogInterface.OnClickListener() { public void
+				 * onClick(DialogInterface dialog, int which) { // do nothing }
+				 * })
+				 */
+				.show();
+	}
+	
+	public void scheduledEventAddedMsg() {
+		new AlertDialog.Builder(this).setTitle("Event was added.")
+		// .setMessage("")
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// do nothing, returns to the main menu
+						finish();
+					}
+				})
+				.show();
+	}
+	
 	private void setUpSubmitButton() {
-		// TODO Auto-generated method stub
-
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// create scheduledModuleEvent based on selections
+				date = new Date();
+				if (occurence == 1 && mon==tue==wed==thu==fri==sat==sun==false){
+					noDaySelectionMsg();
+				}else{
+				ScheduledModuleEvent schedEvent = new ScheduledModuleEvent(
+						moduleName, moduleType, date, schedDate, mon, tue, wed,
+						thu, fri, sat, sun, active, recur, minute.longValue(),
+						hour.longValue(), day.longValue(), month.longValue(),
+						year.longValue(), timeOffset.longValue(), value
+								.longValue(), action);
+				// send post for control
+				Dialog dialog = ProgressDialog.show(ScheduledEventsActivity.this, "", 
+	                    "Adding scheduled event...", true);
+				sendPOSTScheduledEvent(schedEvent);
+				scheduledEventAddedMsg() ;
+				}
+			}
+		});
 	}
 
 	private void updateDateChoices() {
@@ -388,6 +456,11 @@ public class ScheduledEventsActivity extends BarActivity {
 										int which) {
 									// do nothing, returns to the main menu
 									occurence = occurencePicker.getValue();
+									if (occurence==1){
+										recur = true;
+									}else{
+										recur = false;
+									}
 									updateOccurenceDisplay();
 									updateDateChoices();
 								}
