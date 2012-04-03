@@ -143,9 +143,9 @@ public class CapstoneControlActivity extends BarActivity {
 		// it needs to be completelty rewritten, currently fetches can happen multiple times in a row
 		if (modules.size() < 1) {
 			//open dialog box
-			dialog = ProgressDialog.show(CapstoneControlActivity.this, "", 
-                    "Refreshing Modules...", true);
-			getModules();
+			//dialog = ProgressDialog.show(CapstoneControlActivity.this, "", 
+            //        "Refreshing Modules...", true);
+			//getModules();
 		}
 		setScreenContent(R.layout.main);
 		if (userChanged) {
