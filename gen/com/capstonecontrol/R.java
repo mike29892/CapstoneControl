@@ -33,6 +33,8 @@ containing a value of this type.
         public static final int actionbar_background_start=0x7f040002;
         public static final int actionbar_separator=0x7f040000;
         public static final int actionbar_title=0x7f040001;
+        public static final int ics_background_end=0x7f040007;
+        public static final int ics_background_start=0x7f040006;
     }
     public static final class dimen {
         public static final int actionbar_height=0x7f050000;
@@ -48,17 +50,18 @@ containing a value of this type.
         public static final int button=0x7f020005;
         public static final int buttonpushed=0x7f020006;
         public static final int gradient=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int ic_mailboxes_accounts=0x7f020009;
-        public static final int icon=0x7f02000a;
-        public static final int icon48=0x7f02000b;
-        public static final int icon_in_bar=0x7f02000c;
-        public static final int mybutton=0x7f02000d;
-        public static final int plainicon=0x7f02000e;
-        public static final int scale1=0x7f02000f;
-        public static final int scale2=0x7f020010;
-        public static final int splashscreen=0x7f020011;
-        public static final int status_icon=0x7f020012;
+        public static final int gradient_background=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int ic_mailboxes_accounts=0x7f02000a;
+        public static final int icon=0x7f02000b;
+        public static final int icon48=0x7f02000c;
+        public static final int icon_in_bar=0x7f02000d;
+        public static final int mybutton=0x7f02000e;
+        public static final int plainicon=0x7f02000f;
+        public static final int scale1=0x7f020010;
+        public static final int scale2=0x7f020011;
+        public static final int splashscreen=0x7f020012;
+        public static final int status_icon=0x7f020013;
     }
     public static final class id {
         public static final int accountsButton=0x7f0a003b;

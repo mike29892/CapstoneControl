@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <include layout="@layout/bar" />
 
@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:textColor="#ffffff"
         android:background="@drawable/mybutton"
         android:text="Lights" />
 
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
         android:layout_below="@+id/lightsButton"
+        android:textColor="#ffffff"
         android:text="Appliances" />
 
     <Button
@@ -28,6 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:textColor="#ffffff"
         android:text="Settings" />
 
     <Button
@@ -37,6 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/appliancesButton"
         android:background="@drawable/mybutton"
+        android:textColor="#ffffff"
         android:text="Door" />
 
     <Button
@@ -45,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/doorButton"
+        android:textColor="#ffffff"
         android:background="@drawable/mybutton"
         android:text="Event Logs" />
 
@@ -52,6 +57,7 @@
         android:id="@+id/securityButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
         android:layout_alignParentLeft="true"
         android:background="@drawable/mybutton"
         android:layout_below="@+id/logButton"

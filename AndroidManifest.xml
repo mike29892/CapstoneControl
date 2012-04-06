@@ -29,7 +29,8 @@
 
         <!--  Main activity -->
         <activity android:name=".CapstoneControlActivity" android:label="@string/app_name"
-            android:launchMode="singleTop" android:screenOrientation="portrait">
+            android:launchMode="singleTop" android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -62,17 +63,28 @@
             </intent-filter>
         </receiver>
         
-        <activity android:name=".AlertsActivity"></activity>
-		<activity android:name=".BarACtivity"></activity>
-		<activity android:name=".DoorActivity"></activity>
-		<activity android:name=".LightsActivity"></activity>
-		<activity android:name=".MjpegInputStream"></activity>
-		<activity android:name=".MjpegView"></activity>
-		<activity android:name=".SettingsActivity"></activity>
-		<activity android:name=".SplashActivity"></activity>
-		<activity android:name=".LogsActivity"></activity>
-		<activity android:name=".ScheduledEventsActivity"></activity>
-		<activity android:name=".PowerManagementActivity"></activity>
+        <activity android:name=".AlertsActivity"
+            android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".BarACtivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".DoorActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".LightsActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".MjpegInputStream"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".MjpegView"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".SettingsActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".SplashActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".LogsActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".ScheduledEventsActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
+		<activity android:name=".PowerManagementActivity"
+		    android:theme="@android:style/Theme.Holo"></activity>
         
     </application>
 </manifest>

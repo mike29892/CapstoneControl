@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000"
-    android:theme="@android:style/Theme.NoTitleBar" >
+    android:background="@drawable/gradient_background"
+>
 
     <ImageView
         android:id="@+id/barIcon"
@@ -43,6 +43,7 @@
         android:layout_toRightOf="@+id/barIcon"
         android:background="#333333"
         android:clickable="false"
+        android:textColor ="#ffffff"
         android:text="Capstone Control" />
 
 </RelativeLayout>

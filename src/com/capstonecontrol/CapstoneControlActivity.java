@@ -22,7 +22,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -134,6 +133,12 @@ public class CapstoneControlActivity extends BarActivity {
 		// first check to see if already connected, if so save username into
 		// googleUserName
 		googleUserName = prefs.getString(Util.ACCOUNT_NAME, "Unknown");
+		if(googleUserName != null){
+			if (googleUserName.contains("@gmail.com")){
+				googleUserName = googleUserName.substring(0,googleUserName.length()-10);
+			}
+				
+		}
 		if (Util.DISCONNECTED.equals(connectionStatus)
 				|| googleUserName == null) {
 			startActivity(new Intent(this, AccountsActivity.class));
@@ -143,9 +148,9 @@ public class CapstoneControlActivity extends BarActivity {
 		// it needs to be completelty rewritten, currently fetches can happen multiple times in a row
 		if (modules.size() < 1) {
 			//open dialog box
-			//dialog = ProgressDialog.show(CapstoneControlActivity.this, "", 
-            //        "Refreshing Modules...", true);
-			//getModules();
+			dialog = ProgressDialog.show(CapstoneControlActivity.this, "", 
+                    "Refreshing Modules...", true);
+			getModules();
 		}
 		setScreenContent(R.layout.main);
 		if (userChanged) {

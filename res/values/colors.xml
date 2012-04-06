@@ -20,4 +20,6 @@
     <color name="actionbar_background_end">#CD2626</color>
     <color name="actionbar_background_item_pressed_start">#FF7F00</color>
     <color name="actionbar_background_item_pressed_end">#EE7600</color>
+    <color name="ics_background_start">#ff020202</color>
+    <color name="ics_background_end">#ff272D33</color>
 </resources>
