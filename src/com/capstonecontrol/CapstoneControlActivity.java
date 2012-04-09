@@ -35,7 +35,7 @@ public class CapstoneControlActivity extends BarActivity {
 
 	private Button securityButton;
 	private Button lightsButton;
-	private Button appliancesButton;
+	private Button powerManagementButton;
 	private Button settingsButton;
 	private Button doorButton;
 	private Button logsButton;
@@ -206,6 +206,8 @@ public class CapstoneControlActivity extends BarActivity {
 								}
 								if (CapstoneControlActivity.modules.isEmpty())
 									foundModules = "No modules were found!";
+								dialog.cancel();
+								dialog.dismiss();
 							}
 						});
 				return CapstoneControlActivity.modules;
@@ -225,6 +227,8 @@ public class CapstoneControlActivity extends BarActivity {
 					}
 				}
 				foundModules += ".";
+				dialog.cancel();
+				dialog.dismiss();
 				dialog.cancel();
 				dialog.dismiss();
 			}
@@ -345,10 +349,10 @@ public class CapstoneControlActivity extends BarActivity {
 				startActivity(myIntent);
 			}
 		});
-		// appliances button
-		this.appliancesButton = (Button) this
-				.findViewById(R.id.appliancesButton);
-		this.appliancesButton.setOnClickListener(new OnClickListener() {
+		// power management button
+		this.powerManagementButton = (Button) this
+				.findViewById(R.id.powerManagementButton);
+		this.powerManagementButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				//featureNotEnabledMsg();

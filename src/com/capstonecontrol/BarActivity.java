@@ -35,8 +35,7 @@ public class BarActivity extends Activity {
 	private Button barButton;
 	public static ArrayList<String> alertsList = new ArrayList<String>();
 	DefaultHttpClient httpClient;
-	HttpPost httpPost, httpPostScheduledEvent;
-	HttpPost httpPostLog;
+	HttpPost httpPost, httpPostScheduledEvent, httpPostLog;
 	String progressString;
 	@SuppressWarnings("unused")
 	private Context mContext = this;

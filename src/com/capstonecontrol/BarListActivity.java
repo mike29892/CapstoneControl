@@ -35,8 +35,7 @@ public class BarListActivity extends ListActivity {
 	private Button barButton;
 	public static ArrayList<String> alertsList = new ArrayList<String>();
 	DefaultHttpClient httpClient;
-	HttpPost httpPost;
-	HttpPost httpPostLog;
+	HttpPost httpPost, httpPostScheduledEvent, httpPostLog;
 	String progressString;
 	@SuppressWarnings("unused")
 	private Context mContext = this;
@@ -136,6 +135,8 @@ public class BarListActivity extends ListActivity {
 		httpPost = new HttpPost("http://23.21.229.136/message.php");
 		httpPostLog = new HttpPost(
 				"http://capstonecontrol.appspot.com/LogModuleEventServlet");
+		httpPostScheduledEvent = new HttpPost(
+				"http://capstonecontrol.appspot.com/ScheduleEvent");
 		HttpParams httpParameters = new BasicHttpParams();
 		// Set the timeout in milliseconds until a connection is established.
 		int timeoutConnection = 3000;
@@ -162,6 +163,68 @@ public class BarListActivity extends ListActivity {
 		}
 		try {
 			HttpResponse response = httpClient.execute(httpPost);
+			Log.i("HttpResponse", response.getEntity().toString());
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void sendPOSTScheduledEvent(ScheduledModuleEvent schedEvent) {
+		// NOW POST
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		if (CapstoneControlActivity.googleUserName.length() > 10) {
+			if (CapstoneControlActivity.googleUserName.contains("@gmail.com")) {
+				pairs.add(new BasicNameValuePair("user",
+						CapstoneControlActivity.googleUserName
+								.substring(0,
+										CapstoneControlActivity.googleUserName
+												.length() - 10)));
+			} else {
+				pairs.add(new BasicNameValuePair("user",
+						CapstoneControlActivity.googleUserName));
+			}
+		}
+		pairs.add(new BasicNameValuePair("moduleName", schedEvent
+				.getModuleName()));
+		pairs.add(new BasicNameValuePair("moduleType", schedEvent
+				.getModuleType()));
+		pairs.add(new BasicNameValuePair("value", Long.toString(schedEvent
+				.getValue())));
+		pairs.add(new BasicNameValuePair("action", schedEvent.getAction()));
+		pairs.add(new BasicNameValuePair("schedDate", Long.toString(schedEvent
+				.getSchedDate().getTime())));
+		pairs.add(new BasicNameValuePair("active", Boolean.toString(schedEvent
+				.getActive())));
+		pairs.add(new BasicNameValuePair("Sun", Boolean.toString(schedEvent
+				.getSun())));
+		pairs.add(new BasicNameValuePair("Mon", Boolean.toString(schedEvent
+				.getMon())));
+		pairs.add(new BasicNameValuePair("Tue", Boolean.toString(schedEvent
+				.getTue())));
+		pairs.add(new BasicNameValuePair("Wed", Boolean.toString(schedEvent
+				.getWed())));
+		pairs.add(new BasicNameValuePair("Thu", Boolean.toString(schedEvent
+				.getThu())));
+		pairs.add(new BasicNameValuePair("Fri", Boolean.toString(schedEvent
+				.getFri())));
+		pairs.add(new BasicNameValuePair("Sat", Boolean.toString(schedEvent
+				.getSat())));
+		pairs.add(new BasicNameValuePair("offset", Long.toString(schedEvent
+				.getTimeOffset())));
+		pairs.add(new BasicNameValuePair("recur", Boolean.toString(schedEvent
+				.getRecur())));
+		try {
+			httpPostScheduledEvent.setEntity(new UrlEncodedFormEntity(pairs));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			HttpResponse response = httpClient.execute(httpPostScheduledEvent);
 			Log.i("HttpResponse", response.getEntity().toString());
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block

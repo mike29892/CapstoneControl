@@ -15,13 +15,13 @@
         android:text="Lights" />
 
     <Button
-        android:id="@+id/appliancesButton"
+        android:id="@+id/powerManagementButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/mybutton"
         android:layout_below="@+id/lightsButton"
         android:textColor="#ffffff"
-        android:text="Appliances" />
+        android:text="Power Management" />
 
     <Button
         android:id="@+id/settingsButton"
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/appliancesButton"
+        android:layout_below="@+id/powerManagementButton"
         android:background="@drawable/mybutton"
         android:textColor="#ffffff"
         android:text="Door" />

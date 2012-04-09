@@ -85,6 +85,8 @@
 		    android:theme="@android:style/Theme.Holo"></activity>
 		<activity android:name=".PowerManagementActivity"
 		    android:theme="@android:style/Theme.Holo"></activity>
+				<activity android:name=".GraphViewDisplay"
+		    android:theme="@android:style/Theme.Holo"></activity>
         
     </application>
 </manifest>
