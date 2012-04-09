@@ -187,8 +187,7 @@ public class LogsActivity extends BarListActivity {
 						minutesI = dateI.getHours() * 60 + dateI.getMinutes();
 						minutesJ = dateJ.getHours() * 60 + dateJ.getMinutes();
 						if (Math.abs(minutesI - minutesJ) < timeDifference
-								&& dateI.getYear() == dateJ.getYear()
-								&& dateI.getMonth() == dateJ.getMonth()) {
+								&& dateI.getDate() != dateJ.getDate()) {
 							// add one to the count for this
 							// create a new moduleEvent based off one of the two
 							// compared

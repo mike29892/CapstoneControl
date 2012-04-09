@@ -59,6 +59,7 @@ public class PowerManagementActivity extends BarListActivity {
 		// handle spinners
 		// set up submit button
 		setUpSubmitButtons();
+		displayMessageList("Select time period to view info.");
 
 	}
 
