@@ -121,7 +121,7 @@ public class PowerManagementActivity extends BarListActivity {
 				.size()];
 		for (int i = 0; i < matchingPowerDataArray.size(); i++) {
 			wattData[i] = new GraphView.GraphViewData(i,
-					Double.parseDouble(matchingPowerDataArray.get(i).getData()));
+					Double.parseDouble(matchingPowerDataArray.get(matchingPowerDataArray.size()-i-1).getData()));
 		}
 		GraphViewSeries wattDataSeries = new GraphViewSeries(wattData);
 
@@ -229,7 +229,7 @@ public class PowerManagementActivity extends BarListActivity {
 
 	protected void calculatekWHrUsage() {
 		usedkWHr = 0;
-		usedkWHr = (float) ((averageWatts / 1000) * (2.2 * matchingPowerDataArray
+		usedkWHr = (float) ((averageWatts / 1000) * (2.1 * matchingPowerDataArray
 				.size() / 60));
 
 	}
